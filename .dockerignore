@@ -1,0 +1,8 @@
+venv/
+__pycache__/
+migrations/
+Makefile
+stop_server.sh
+README.md
+.DS_Store
+
