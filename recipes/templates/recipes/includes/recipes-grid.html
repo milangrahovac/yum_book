@@ -1,0 +1,11 @@
+<li>
+    <article class="post">
+        <a href="{% url "recepie-detail-page" recepie.slug %}">
+            <img src="{{ recepie.image.url }}" alt="">
+            <div class="post-content">
+                <h3>{{ recepie.name }}</h3>
+                <p>{{ recepie.category }}</p>
+            </div>
+        </a>
+    </article>
+</li>

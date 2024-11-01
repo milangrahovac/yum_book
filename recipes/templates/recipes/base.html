@@ -12,8 +12,31 @@
 </head>
 
 <body>
-    <header></header>
+
+
+    <header id="main-header">
+        <h1><a href="{% url "index" %}">Yum Book</a></h1>
+    
+        <nav>
+            <a href="">All recipes</a>
+    
+            <div class="dropdown" style="float:right;">
+                <a class="dropbtn">Categories</a>
+                <div class="dropdown-content">    
+                    {% for categorie in categories %}
+                    <a href="#">{{categorie.name}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+    
+        </nav>
+    </header>
+    <br>
+
+    <div id="content">
+    
     {% block content %}{% endblock content %}
+    </div>
 </body>
 
 </html>

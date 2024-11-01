@@ -3,8 +3,33 @@
 
 {% block title %}YumBook{% endblock title %}
 
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'recipes/styles/index.css' %}">
+{% endblock css_files %}
+
+
+
 {% block content %}
 
-<h1>Hello World</h1>
+
+<section id="recepies-grid">
+
+    <h2>Newest recepies</h2>
+    <ul>
+        {% for recepie in newest_recepies %}
+            {% include "recipes/includes/recipes-grid.html" %}
+        {% endfor %}
+    </ul>
+</section>
+
+<section id="recepies-grid">
+
+    <h2>Favorite recepies</h2>
+    <ul>
+        {% for recepie in top_recipes %}
+            {% include "recipes/includes/recipes-grid.html" %}
+        {% endfor %}
+    </ul>
+</section>
 
 {% endblock content %}

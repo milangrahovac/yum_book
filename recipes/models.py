@@ -4,14 +4,35 @@ from django.core.validators import MinLengthValidator, MaxLengthValidator, MinVa
 # Create your models here.
 
 
-class Ingredient(models.Model):
+# class Ingredient(models.Model):
+#     name = models.CharField(max_length=30)
+
+#     class Meta():
+#         verbose_name_plural = 'Ingredients'
+
+#     def __str__(self):
+#         return self.name
+
+
+class Category(models.Model):
     name = models.CharField(max_length=30)
+
+    class Meta():
+        verbose_name_plural = 'Categories'
+
+    def __str__(self):
+        return self.name
+
+    def recepie_category(self):
+        return self.name
 
 
 class Recepie(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, db_index=True)
-    ingredientes = models.ManyToManyField(Ingredient)
+    category = models.ForeignKey(
+        Category, on_delete=models.SET_NULL, null=True)
+    ingredientes = models.TextField(max_length=300)
     text = models.TextField(
         validators=[MinLengthValidator(10), MaxLengthValidator(2000)])
     rating = models.IntegerField(
