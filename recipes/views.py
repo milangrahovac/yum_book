@@ -32,16 +32,6 @@ def all_recipes(request):
     })
 
 
-# def recipes_by_category(request, selected_category):
-#     categories = Category.objects.all()
-#     print(selected_category)
-#     selected_recipes = Recepie.objects.filter(category=selected_category)
-
-#     return render(request, 'recipes/category.html', {
-#         'categories': categories,
-#         'selected_recipes': selected_recipes
-#     })
-
 def recipes_by_category(request, selected_category):
     categories = Category.objects.all()
     # Retrieve the Category object based on the name from the URL
@@ -51,6 +41,7 @@ def recipes_by_category(request, selected_category):
     recipes = Recepie.objects.filter(category=category_obj)
 
     return render(request, 'recipes/category.html', {
+        'category': selected_category,
         'categories': categories,
-        'selected_category': recipes,
+        'selected_recipes': recipes,
     })

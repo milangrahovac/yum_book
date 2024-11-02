@@ -13,9 +13,9 @@
 
 <section id="recepies-grid">
 
-    <h2>All recipies</h2>
+    <h2>{{ category|capfirst }}</h2>
     <ul>
-        {% for recipe in selected_category %}
+        {% for recipe in selected_recipes %}
             {% include "recipes/includes/recipes-grid.html" %}
         {% endfor %}
     </ul>

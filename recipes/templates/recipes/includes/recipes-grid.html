@@ -3,8 +3,8 @@
         <a href="{% url "recipe-detail-page" recipe.slug %}">
             <img src="{{ recipe.image.url }}" alt="">
             <div class="post-content">
-                <h3>{{ recipe.name }}</h3>
-                <p>{{ recipe.category }}</p>
+                <h3>{{ recipe.name|capfirst }}</h3>
+                <p>{{ recipe.category|capfirst }}</p>
             </div>
         </a>
     </article>
