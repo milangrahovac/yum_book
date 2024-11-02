@@ -1,7 +1,7 @@
 {% extends "recipes/base.html" %}
 {% load static %}
 
-{% block title %}YumBook{% endblock title %}
+{% block title %}{{ recipe.name }}{% endblock title %}
 
 {% block css_files %}
 <link rel="stylesheet" href="{% static 'recipes/styles/recipe-detail.css' %}">
@@ -12,6 +12,24 @@
 
 
 <h2>{{ recipe.name }}</h2>
-<p>{{ recipe.text }}</p>
+
+<article>
+    <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}">
+</article>
+
+<article class="ingredients">
+    <div>
+        <h3>Ingredients:</h3>
+        <p>{{ recipe.ingredientes }}</p>
+    </div>
+
+    <div class="preparation">
+        <h3>Preparation:</h3>
+        <p>{{ recipe.text }}</p>
+    </div>
+</article>
+
+
+
 
 {% endblock content %}

@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}YumBook{% endblock title %}YumBook</title>
+    <title>{% block title %}YumBook{% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'recipes/styles/base.css' %}">
     {% block css_files %}{% endblock css_files %}
 </head>
@@ -18,13 +18,13 @@
         <h1><a href="{% url "index" %}">Yum Book</a></h1>
     
         <nav>
-            <a href="">All recipes</a>
+            <a href="{% url "all_recipes" %}">All recipes</a>
     
-            <div class="dropdown" style="float:right;">
-                <a class="dropbtn">Categories</a>
-                <div class="dropdown-content">    
+            <div id="dropdown">
+                <a id="dropbtn">Categories</a>
+                <div id="dropdown-content">    
                     {% for categorie in categories %}
-                    <a href="#">{{categorie.name}}</a>
+                        <a href="{% url "recipe-category" categorie.name %}">{{ categorie.name }}</a>
                     {% endfor %}
                 </div>
             </div>
@@ -34,7 +34,6 @@
     <br>
 
     <div id="content">
-    
     {% block content %}{% endblock content %}
     </div>
 </body>

@@ -1,5 +1,8 @@
 from django.db import models
 from django.core.validators import MinLengthValidator, MaxLengthValidator, MinValueValidator, MaxValueValidator
+from django.utils.text import slugify
+import os
+from datetime import datetime
 
 # Create your models here.
 

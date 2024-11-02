@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Category, Recepie
 # Create your views here.
 
@@ -15,7 +15,29 @@ def index(request):
 
 
 def recepie_detail(request, slug):
+    categories = Category.objects.all()
     recipe = Recepie.objects.get(slug=slug)
     return render(request, 'recipes/recipe-detail.html', {
-        "recipe": recipe
+        'categories': categories,
+        'recipe': recipe
+    })
+
+
+def all_recipes(request):
+    categories = Category.objects.all()
+    all_recepies = Recepie.objects.all().order_by('-updated_at')
+    return render(request, 'recipes/all-recipes.html', {
+        'categories': categories,
+        'all_recepies': all_recepies
+    })
+
+
+def recipes_by_category(request, selected_category):
+    categories = Category.objects.all()
+    print(selected_category)
+    selected_recipes = Recepie.objects.filter(category=selected_category)
+
+    return render(request, 'recipes/category.html', {
+        'categories': categories,
+        'selected_recipes': selected_recipes
     })
