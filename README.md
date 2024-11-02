@@ -16,12 +16,7 @@ This is a simple Django application for storing and viewing recipes. The app fea
 - **YumBook - Home Page:** Links to the homepage. The home page displays the 3 most recently added recipes and bellow the 3 top-rated recipes.
 - **All Recipes Page:** Displays all recipes sorted by rating.
 - **Categories DropDown Menu:** A dropdown menu with cuisine types (e.g., Italian, Russian, Asian, Vegan). Selecting a category shows only recipes of that type.
-- **Django Admin Page** to manage (add/edit/delete) recipes.
-
-
-## Dynamic Content
-
-The app dynamically displays updated content. Once a recipe is added, edited, or deleted in the database, the change will automatically reflect in the app without the need to modify HTML manually.
+- **Django Admin Page** to manage (add/edit/delete) recipes. The app dynamically displays updated content. Once a recipe is added, edited, or deleted in the database, the change will automatically reflect in the app without the need to modify HTML manually.
 
 
 ## Getting Started
