@@ -26,7 +26,7 @@ Make sure you have Python 3 and pip installed on your system.
 
 ### Set Up the Aplication
 1. Clone the repository and navigate to the project folder: <br>
-```git clone milangrahovac/yum_book```
+```git clone https://github.com/milangrahovac/yum_book.git```
 2. Set Up a virtual environment. 
 - Create the virtual environment: <br>
 ```python3 -m venv venv```
