@@ -7,5 +7,4 @@ urlpatterns = [
     path('recepie/<slug:slug>', views.recepie_detail, name='recipe-detail-page'),
     path('category/<str:selected_category>',
          views.recipes_by_category, name='recipe-category'),
-
 ]

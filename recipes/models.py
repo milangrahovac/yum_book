@@ -1,20 +1,5 @@
 from django.db import models
 from django.core.validators import MinLengthValidator, MaxLengthValidator, MinValueValidator, MaxValueValidator
-from django.utils.text import slugify
-import os
-from datetime import datetime
-
-# Create your models here.
-
-
-# class Ingredient(models.Model):
-#     name = models.CharField(max_length=30)
-
-#     class Meta():
-#         verbose_name_plural = 'Ingredients'
-
-#     def __str__(self):
-#         return self.name
 
 
 class Category(models.Model):
