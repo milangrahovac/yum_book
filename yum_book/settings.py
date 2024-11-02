@@ -27,6 +27,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# if DEBUG is False:
+#     ALLOWED_HOSTS = [
+#         '127.0.0.1:8000',
+#         '*',
+#     ]
+
+# if DEBUG is True:
+#     ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -55,7 +63,9 @@ ROOT_URLCONF = 'yum_book.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

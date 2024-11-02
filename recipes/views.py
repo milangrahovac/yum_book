@@ -1,9 +1,13 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import Http404
 from .models import Category, Recepie
 # Create your views here.
 
 
 def index(request):
+    # View that renders the home page.
+    # always return "categories" so dropdown menu can be created
+
     categories = Category.objects.all()
     newest_recepies = Recepie.objects.all().order_by('-updated_at')[:3]
     top_recipes = Recepie.objects.all().order_by('-rating')[:3]
@@ -15,6 +19,8 @@ def index(request):
 
 
 def recepie_detail(request, slug):
+    # Single recipe details page
+    # always return "categories" so dropdown menu can be created
     categories = Category.objects.all()
     recipe = Recepie.objects.get(slug=slug)
     return render(request, 'recipes/recipe-detail.html', {
@@ -24,6 +30,8 @@ def recepie_detail(request, slug):
 
 
 def all_recipes(request):
+    # All Recipes page
+    # always return "categories" so dropdown menu can be created
     categories = Category.objects.all()
     all_recepies = Recepie.objects.all().order_by('-updated_at')
     return render(request, 'recipes/all-recipes.html', {
@@ -33,7 +41,10 @@ def all_recipes(request):
 
 
 def recipes_by_category(request, selected_category):
+    # When user click on category should be redirected to page to see all recipes with selected category
+    # always return "categories" so dropdown menu can be created
     categories = Category.objects.all()
+
     # Retrieve the Category object based on the name from the URL
     category_obj = get_object_or_404(Category, name=selected_category)
 
