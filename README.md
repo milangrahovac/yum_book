@@ -70,7 +70,7 @@ Below are the available targets along with their descriptions and usage.
 Once you have cloned the repository, installed the virtual environment, set up the database, and created a superuser with all the steps from the "Getting Started" section, you can easily run and stop the application using the Makefile.
 
 ### Using Makefile
-Once you have cloned the repository, installed the virtual environment, set up the database, and created a superuser with all the steps from the "Getting Started" section, you can easily run and stop the application using the Makefile. 
+Once you have cloned the repository, installed the virtual environment, set up the database, and created a superuser with all the steps from the [Getting Started](#getting-started) section, you can easily run and stop the application using the Makefile. 
 1. Activate the virtual environment: <br>
 ```source venv/bin/activate```
 2. Run the application: <br>
