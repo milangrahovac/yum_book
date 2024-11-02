@@ -1,0 +1,38 @@
+name: Lint Django Application
+
+on: 
+  push:
+    branches: 
+      - main  # Run the linter when pushing to main
+  pull_request:
+    branches: 
+      - main  # Run the linter for pull requests to main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+          pip install flake8  # Add flake8 for linting
+
+      # Run flake8 linter
+      - name: Run flake8
+        run: |
+          source venv/bin/activate
+          flake8 . --exclude=venv,migrations --max-line-length=79
