@@ -152,21 +152,12 @@ a {
     color: rgb(233, 237, 156);
 }
 
-  /* .dropdown-content a:hover {background-color: #f1f1f1;} */
 #dropdown:hover #dropdown-content {
     display: block;
 }
 
-/* Ensure dropdown links are black */
-/* #main-header .dropdown-content a {
-    color: rgb(233, 237, 156);
-} */
-
 #content {
-    /* padding-top: 6rem;
-    width: 85%;
-    margin: 0 auto;    
-    height: 100%; */
+
     padding: 6em 10% 0 10%;
 }
 

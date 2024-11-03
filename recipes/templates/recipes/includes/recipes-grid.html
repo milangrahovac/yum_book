@@ -3,7 +3,7 @@
         <a href="{% url "recipe-detail-page" recipe.slug %}">
             <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}">
             <div class="post-content">
-                <h5>{{ recipe.name|capfirst }}</h5>
+                <h6>{{ recipe.name|capfirst }}</h6>
                 <p>{{ recipe.category|capfirst }}</p>
                 <p>Rating: {{ recipe.rating|capfirst }}</p>
             </div>
