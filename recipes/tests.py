@@ -4,7 +4,7 @@
 
 from django.test import TestCase
 from django.urls import reverse
-from .models import Category, Recepie
+from .models import Category, Recipe
 from django.utils import timezone
 
 # from django.core.exceptions import ValidationError
@@ -37,7 +37,7 @@ class HomepageTest(TestCase):
         cls.category1 = Category.objects.create(name=test1['category'])
         cls.category2 = Category.objects.create(name=test2['category'])
 
-        cls.recipe1 = Recepie.objects.create(
+        cls.recipe1 = Recipe.objects.create(
             name=test1['name'],
             slug=test1['slug'],
             ingredients=test1['ingredients'],
@@ -47,7 +47,7 @@ class HomepageTest(TestCase):
             category=cls.category1,
         )
 
-        cls.recipe2 = Recepie.objects.create(
+        cls.recipe2 = Recipe.objects.create(
             name=test2['name'],
             slug=test2['slug'],
             ingredients=test2['ingredients'],
