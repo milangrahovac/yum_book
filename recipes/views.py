@@ -8,11 +8,11 @@ def index(request):
     # always return "categories" so dropdown menu can be created
 
     categories = Category.objects.all()
-    newest_recepies = Recepie.objects.all().order_by('-updated_at')[:3]
+    newest_recipes = Recepie.objects.all().order_by('-updated_at')[:3]
     top_recipes = Recepie.objects.all().order_by('-rating')[:3]
     return render(request, 'recipes/index.html', {
         'categories': categories,
-        'newest_recepies': newest_recepies,
+        'newest_recipes': newest_recipes,
         'top_recipes': top_recipes
     })
 
@@ -32,10 +32,10 @@ def all_recipes(request):
     # All Recipes page
     # always return "categories" so dropdown menu can be created
     categories = Category.objects.all()
-    all_recepies = Recepie.objects.all().order_by('-updated_at')
+    all_recipes = Recepie.objects.all().order_by('-updated_at')
     return render(request, 'recipes/all-recipes.html', {
         'categories': categories,
-        'all_recepies': all_recepies
+        'all_recipes': all_recipes
     })
 
 
