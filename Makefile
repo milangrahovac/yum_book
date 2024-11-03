@@ -19,4 +19,5 @@ migrate: ## Applying database migrations.
 	sleep 1
 	python3 manage.py migrate
 
-
+test: ## Run tests.
+	python3 manage.py test  
