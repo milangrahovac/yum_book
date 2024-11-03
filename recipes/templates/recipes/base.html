@@ -24,7 +24,7 @@
                 <a id="dropbtn">Categories</a>
                 <div id="dropdown-content">    
                     {% for categorie in categories %}
-                        <a href="{% url "recipe-category" categorie.name %}">{{ categorie.name }}</a>
+                        <a href="{% url "recipes_by_category" categorie.name %}">{{ categorie.name }}</a>
                     {% endfor %}
                 </div>
             </div>

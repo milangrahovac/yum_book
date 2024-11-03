@@ -1,7 +1,7 @@
 <li>
     <article class="post">
         <a href="{% url "recipe-detail-page" recipe.slug %}">
-            <img src="{{ recipe.image.url }}" alt="">
+            <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}">
             <div class="post-content">
                 <h3>{{ recipe.name|capfirst }}</h3>
                 <p>{{ recipe.category|capfirst }}</p>
