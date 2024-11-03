@@ -68,7 +68,7 @@ class HomepageTest(TestCase):
         self.assertLessEqual(len(response.context['top_recipes']), 3)
 
     def test_all_recipes_view(self):
-        # Test the all recipes page view
+        # Test the requiest status and context
         response = self.client.get(reverse('all_recipes'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'recipes/all-recipes.html')
@@ -86,7 +86,7 @@ class HomepageTest(TestCase):
             response.context['recipe'].name, test1['name'])
 
     def test_recipes_by_category_view(self):
-        # Test the recipes by category view for "Italian"
+        # Test the recipes by category
         response = self.client.get(
             reverse('recipes_by_category', args=[self.category2.name]))
         self.assertEqual(response.status_code, 200)
@@ -97,7 +97,7 @@ class HomepageTest(TestCase):
         self.assertIn('categories', response.context)
         self.assertIn('selected_recipes', response.context)
 
-    def test_selected_recipes_rating(self):
+    def test_recipes_rating(self):
         # Check that all recipes in 'all_recipes' have a rating >= 1 and <= 5
         response = self.client.get(reverse('all_recipes'))
         self.assertEqual(response.status_code, 200)
@@ -109,7 +109,18 @@ class HomepageTest(TestCase):
             self.assertGreaterEqual(recipe.rating, 1)
             self.assertLessEqual(recipe.rating, 5)
 
-    # lol
+    def test_recipes_slug(self):
+        # Check that all recipes in 'all_recipes' have a rating >= 1 and <= 5
+        response = self.client.get(reverse('all_recipes'))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('all_recipes', response.context)
+
+        recipes = response.context['all_recipes']
+        for recipe in recipes:
+            self.assertGreaterEqual(recipe.rating, 1)
+            self.assertLessEqual(recipe.rating, 5)
+            self.assertTrue(recipe.slug.islower())
+            self.assertNotIn(" ", recipe.slug)
 
     # class HomepageTest(TestCase):
     #     @classmethod
