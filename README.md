@@ -66,6 +66,7 @@ Below are the available targets along with their descriptions and usage.
 - ```make stop``` - Stops the Django development server if it’s currently running on port 8000. 
 - ```make requirements``` - Installs the Python packages listed in requirements.txt. Run this command to ensure your environment has all the necessary dependencies installed. 
 - ```make migrate``` - Applies database migrations to ensure the database schema is up-to-date with the Django models. Use this command whenever you have made changes to your models and need to update the database schema accordingly.
+- make ```test``` - Run tests
 
 Once you have cloned the repository, installed the virtual environment, set up the database, and created a superuser with all the steps from the "Getting Started" section, you can easily run and stop the application using the Makefile.
 
