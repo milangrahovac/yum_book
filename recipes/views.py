@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Category, Recepie
+from .models import Category, Recipe
 # Create your views here.
 
 
@@ -8,8 +8,8 @@ def index(request):
     # always return "categories" so dropdown menu can be created
 
     categories = Category.objects.all()
-    newest_recipes = Recepie.objects.all().order_by('-updated_at')[:3]
-    top_recipes = Recepie.objects.all().order_by('-rating')[:3]
+    newest_recipes = Recipe.objects.all().order_by('-updated_at')[:3]
+    top_recipes = Recipe.objects.all().order_by('-rating')[:3]
     return render(request, 'recipes/index.html', {
         'categories': categories,
         'newest_recipes': newest_recipes,
@@ -21,7 +21,7 @@ def recepie_detail(request, slug):
     # Single recipe details page
     # always return "categories" so dropdown menu can be created
     categories = Category.objects.all()
-    recipe = Recepie.objects.get(slug=slug)
+    recipe = Recipe.objects.get(slug=slug)
     return render(request, 'recipes/recipe-detail.html', {
         'categories': categories,
         'recipe': recipe
@@ -32,7 +32,7 @@ def all_recipes(request):
     # All Recipes page
     # always return "categories" so dropdown menu can be created
     categories = Category.objects.all()
-    all_recipes = Recepie.objects.all().order_by('-updated_at')
+    all_recipes = Recipe.objects.all().order_by('-updated_at')
     return render(request, 'recipes/all-recipes.html', {
         'categories': categories,
         'all_recipes': all_recipes
@@ -48,7 +48,7 @@ def recipes_by_category(request, selected_category):
     category_obj = get_object_or_404(Category, name=selected_category)
 
     # Filter Recepie objects where category matches the retrieved category
-    recipes = Recepie.objects.filter(category=category_obj)
+    recipes = Recipe.objects.filter(category=category_obj)
 
     return render(request, 'recipes/category.html', {
         'category': selected_category,

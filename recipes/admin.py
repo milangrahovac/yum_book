@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Recepie, Category
+from .models import Recipe, Category
 
 # Register your models here.
 
@@ -20,4 +20,4 @@ class RecepieAdmin(admin.ModelAdmin):
 
 # admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(Recepie, RecepieAdmin)
+admin.site.register(Recipe, RecepieAdmin)
