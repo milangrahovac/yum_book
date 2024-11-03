@@ -20,8 +20,8 @@ class Recepie(models.Model):
     slug = models.SlugField(unique=True, db_index=True)
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, null=True)
-    ingredientes = models.TextField(max_length=300)
-    text = models.TextField(
+    ingredients = models.TextField(max_length=300)
+    preparation = models.TextField(
         validators=[MinLengthValidator(10), MaxLengthValidator(2000)])
     rating = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(5)])

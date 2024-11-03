@@ -6,5 +6,5 @@ urlpatterns = [
     path('recepies', views.all_recipes, name='all_recipes'),
     path('recepie/<slug:slug>', views.recepie_detail, name='recipe-detail-page'),
     path('category/<str:selected_category>',
-         views.recipes_by_category, name='recipe-category'),
+         views.recipes_by_category, name='recipes_by_category'),
 ]
