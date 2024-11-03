@@ -32,7 +32,7 @@ def all_recipes(request):
     # All Recipes page
     # always return "categories" so dropdown menu can be created
     categories = Category.objects.all()
-    all_recipes = Recipe.objects.all().order_by('-updated_at')
+    all_recipes = Recipe.objects.all().order_by('-rating')
     return render(request, 'recipes/all-recipes.html', {
         'categories': categories,
         'all_recipes': all_recipes
