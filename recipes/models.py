@@ -15,7 +15,7 @@ class Category(models.Model):
         return self.name
 
 
-class Recepie(models.Model):
+class Recipe(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, db_index=True)
     category = models.ForeignKey(

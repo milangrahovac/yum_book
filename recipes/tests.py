@@ -4,7 +4,9 @@
 
 from django.test import TestCase
 from django.urls import reverse
-from .models import Category, Recepie
+from .models import Category, Recipe
+from django.utils import timezone
+
 # from django.core.exceptions import ValidationError
 
 
@@ -35,7 +37,7 @@ class HomepageTest(TestCase):
         cls.category1 = Category.objects.create(name=test1['category'])
         cls.category2 = Category.objects.create(name=test2['category'])
 
-        cls.recipe1 = Recepie.objects.create(
+        cls.recipe1 = Recipe.objects.create(
             name=test1['name'],
             slug=test1['slug'],
             ingredients=test1['ingredients'],
@@ -45,7 +47,7 @@ class HomepageTest(TestCase):
             category=cls.category1,
         )
 
-        cls.recipe2 = Recepie.objects.create(
+        cls.recipe2 = Recipe.objects.create(
             name=test2['name'],
             slug=test2['slug'],
             ingredients=test2['ingredients'],
@@ -68,7 +70,7 @@ class HomepageTest(TestCase):
         self.assertLessEqual(len(response.context['top_recipes']), 3)
 
     def test_all_recipes_view(self):
-        # Test the all recipes page view
+        # Test the requiest status and context
         response = self.client.get(reverse('all_recipes'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'recipes/all-recipes.html')
@@ -86,7 +88,7 @@ class HomepageTest(TestCase):
             response.context['recipe'].name, test1['name'])
 
     def test_recipes_by_category_view(self):
-        # Test the recipes by category view for "Italian"
+        # Test the recipes by category
         response = self.client.get(
             reverse('recipes_by_category', args=[self.category2.name]))
         self.assertEqual(response.status_code, 200)
@@ -97,19 +99,67 @@ class HomepageTest(TestCase):
         self.assertIn('categories', response.context)
         self.assertIn('selected_recipes', response.context)
 
-    def test_selected_recipes_rating(self):
+    def test_recipes_rating(self):
         # Check that all recipes in 'all_recipes' have a rating >= 1 and <= 5
         response = self.client.get(reverse('all_recipes'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'recipes/all-recipes.html')
         self.assertIn('all_recipes', response.context)
 
-        all_recipes = response.context['all_recipes']
-        for recipe in all_recipes:
+        recipes = response.context['all_recipes']
+
+        for recipe in recipes:
             self.assertGreaterEqual(recipe.rating, 1)
             self.assertLessEqual(recipe.rating, 5)
 
-    # lol
+    def test_recipes_slug(self):
+        # Check that all recipes in 'all_recipes' have a rating >= 1 and <= 5
+        response = self.client.get(reverse('all_recipes'))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('all_recipes', response.context)
+
+        recipes = response.context['all_recipes']
+
+        for recipe in recipes:
+            self.assertGreaterEqual(recipe.rating, 1)
+            self.assertLessEqual(recipe.rating, 5)
+            self.assertTrue(recipe.slug.islower())
+            self.assertNotIn(" ", recipe.slug)
+
+    def test_date_time(self):
+        # check if created_at and updated_at are in datetime format
+        # check if created_at stay the same after Recipe update
+        # check if update_at get a new datetime after update
+
+        response = self.client.get(reverse('all_recipes'))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('all_recipes', response.context)
+        recipes = response.context['all_recipes']
+
+        for recipe in recipes:
+            # Check if created_at and updated_at are in datetime format
+            self.assertIsInstance(recipe.created_at, timezone.datetime)
+            self.assertIsInstance(recipe.updated_at, timezone.datetime)
+
+            # Store the original updated_at time
+            original_name = recipe.name
+            original_updated_at = recipe.updated_at
+            original_created_at = recipe.created_at
+
+            # Update the recepie and save
+            recipe.name = "Updated Chocolate Cake"
+            recipe.save()
+
+            # check if name has been changed to a new name
+            self.assertNotEqual(recipe.name, original_name)
+
+            # After update update_at time should be auto changed to a new datetime
+            # Check if updated_at has been changed to a new datetime
+            self.assertNotEqual(recipe.updated_at, original_updated_at)
+            self.assertGreater(recipe.updated_at, original_updated_at)
+
+            # Check if crated_at time still has a same datetime
+            self.assertEqual(original_created_at, recipe.created_at)
 
     # class HomepageTest(TestCase):
     #     @classmethod

@@ -1,8 +1,10 @@
 h2 {
     text-align: center;
-    margin-bottom: 2em;
 }
 
+#content h2 {
+    margin-bottom: 2em;
+}
 
 article:first-of-type {
     display: inline;
@@ -41,7 +43,7 @@ article h3 {
         min-width: 300px;
     }
     article img {
-        max-height: 100px;
+        max-height: 300px;
         display: block;
         margin-left: auto;
         margin-right: auto;
@@ -53,3 +55,6 @@ article h3 {
         grid-template-columns: 1fr; /* 1 column on small screens */
     }
 }
+
+
+  

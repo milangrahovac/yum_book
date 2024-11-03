@@ -11,27 +11,30 @@
 {% block content %}
 
 
-<h2>{{ recipe.name|capfirst }}</h2>
+    <h2>{{ recipe.name|capfirst }}</h2>
 
-<article>
-    <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}">
-</article>
+    <article>
+        <div>
+            <h3>Rating: {{ recipe.rating }}</h3>
+        </div>
+        <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}">
 
-<article class="ingredients">
-    
-    <div>
-        <h3>Ingredients:</h3>
-        <p>{{ recipe.ingredients }}</p>
-    </div>
-
-    <div class="preparation">
-        <h3>Preparation:</h3>
-        <p>{{ recipe.preparation }}</p>
-    </div>
-
-</article>
+    </article>
 
 
+    <article class="ingredients">
+        
+        <div>
+            <h3>Ingredients:</h3>
+            <p>{{ recipe.ingredients }}</p>
+        </div>
+
+        <div class="preparation">
+            <h3>Preparation:</h3>
+            <p>{{ recipe.preparation }}</p>
+        </div>
+
+    </article>
 
 
 {% endblock content %}
