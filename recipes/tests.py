@@ -17,7 +17,7 @@ test1 = {
     'preparation': 'Boil spaghetti. Cook pancetta. Mix with eggs and cheese.',
     'rating': 4,
     'image=': 'images/spaghetti3234.jpg',
-    'category': 'italian',
+    'category': 'Italian',
 }
 
 test2 = {
@@ -27,7 +27,7 @@ test2 = {
     'preparation': 'Prepare rice. Slice fish. Roll with seaweed.',
     'rating': 5,
     'image=': 'images/sushi4343.jpg',
-    'category': 'asian',
+    'category': 'Asian',
 }
 
 
