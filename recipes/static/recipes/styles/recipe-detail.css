@@ -30,6 +30,11 @@ article h3 {
     margin-bottom: .8em;
 }
 
+.ingredients ul {
+    padding-left: 1em;
+    list-style-position: inside;
+}
+
 
 /* Responsive adjustments */
 @media (max-width: 900px) {
