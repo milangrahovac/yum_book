@@ -7,20 +7,13 @@ env/
 __pycache__/
 migrations/
 .ebextensions/
-django/my_site/staticfiles/
 django.txt
 
 # exclude everything
-django/feedback/temp/*
+uploads/images/*
 
 # exception to the rule
-!django/feedback/temp/.gitkeep
-
-# exclude everything
-django/feedback/uploads/images/*
-
-# exception to the rule
-!django/feedback/uploads/images/.gitkeep
+!uploads/images/.gitkeep
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
