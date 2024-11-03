@@ -1,8 +1,10 @@
 name: Django CI
 
-on:
+on: 
   push:
-    branches: [main, dev]  # Adjust based on your branches
+    branches: 
+      - main  # Run the tests when pushing to main and devs
+      - devs
 
 jobs:
   test:
@@ -10,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
