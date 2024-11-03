@@ -157,7 +157,6 @@ a {
 }
 
 #content {
-
     padding: 6em 10% 0 10%;
 }
 
@@ -169,26 +168,4 @@ a {
     #main-header nav a { 
         font-size: 1.2em;
     }
-}
-
-
-.tomato {
-    position: relative;
-}
-  
-.tomato-body {
-    width: 60px;
-    height: 60px;
-    background: red;
-    border-radius: 50%;
-}
-  
-.tomato-leaf {
-    position: absolute;
-    top: -20px;
-    left: 15px; 
-    width: 30px;
-    height: 30px;
-    background: green;
-    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
 }

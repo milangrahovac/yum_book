@@ -26,12 +26,19 @@
         
         <div>
             <h3>Ingredients:</h3>
-            <p>{{ recipe.ingredients }}</p>
+            {% comment %} <p>{{ recipe.ingredients|linebreaks }}</p> {% endcomment %}
+
+            <ul>
+                {% for line in recipe.ingredients.splitlines %}
+                    <li>{{ line }}</li>
+                {% endfor %}
+            </ul>
+
         </div>
 
         <div class="preparation">
             <h3>Preparation:</h3>
-            <p>{{ recipe.preparation }}</p>
+            <p>{{ recipe.preparation|linebreaksbr }}</p>
         </div>
 
     </article>
