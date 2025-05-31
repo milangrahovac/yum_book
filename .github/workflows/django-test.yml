@@ -27,7 +27,7 @@ jobs:
           source venv/bin/activate
           pip install -r requirements.txt
 
-      - name: Create test database
+      - name: Create database if not exists
         run: |
           if [ ! -f db.sqlite3 ]; then
             touch db.sqlite3
