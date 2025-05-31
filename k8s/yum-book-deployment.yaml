@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: yum-book-app
-          image: mgrah/yum-book:latest1 # Change this if you use a different tag/name
+          image: mgrah/yum-book:latest # Change this if you use a different tag/name
           ports:
             - containerPort: 8000

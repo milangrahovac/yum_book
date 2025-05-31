@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: yum-book-argocd-app
+  namespace: argocd # Argo CD is usually installed in the 'argocd' namespace
+spec:
+  project: default
+
+  source:
+    repoURL: "https://github.com/milangrahovac/yum_book.git"
+    targetRevision: HEAD # Or a specific branch/tag like "main"
+    path: k8s # Path in the repo where manifest files are stored
+
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: yum-book
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true
