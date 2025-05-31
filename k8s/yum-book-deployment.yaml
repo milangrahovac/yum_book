@@ -17,6 +17,6 @@ spec:
       containers:
         - name: yum-book-app
           image: mgrah/yum-book:latest
-          imagePullPolicy: Always
+          # imagePullPolicy: Always
           ports:
             - containerPort: 8000
