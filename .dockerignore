@@ -1,8 +1,10 @@
 venv/
 __pycache__/
+.github/
 migrations/
+kubernetes/
+docker-compose.yml
 Makefile
 stop_server.sh
 README.md
 .DS_Store
-
