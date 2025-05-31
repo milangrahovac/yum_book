@@ -37,7 +37,7 @@ tag:
 	docker tag $(IMAGE_NAME):$(IMAGE_TAG) $(DOCKER_USER)/$(IMAGE_NAME):$(IMAGE_TAG)
 
 # Push the image to Docker Hub
-push:
+push: build tag
 	docker push $(DOCKER_USER)/$(IMAGE_NAME):$(IMAGE_TAG)
 
 # Build + tag + push in one command
