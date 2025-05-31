@@ -9,3 +9,4 @@ stop_server.sh
 README.md
 .DS_Store
 .env
+# db.sqlite3
