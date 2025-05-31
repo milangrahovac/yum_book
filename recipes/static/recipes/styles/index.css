@@ -40,8 +40,7 @@
 
 /* Hover effect for the a element */
 #recepies-grid a:hover {
-    background-color: blue;
-    /* background-color: orange; */
+    background-color: orange;
     color: white; /* Optional color change on hover */
 }
 
