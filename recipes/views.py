@@ -63,7 +63,7 @@ def get_chart_version(chart_path="helm/Chart.yaml"):
     with open(chart_path, 'r') as stream:
         try:
             chart = yaml.safe_load(stream)
-            return chart.get("version", None)
+            return chart.get("appVersion", None)
         except yaml.YAMLError as e:
             print(f"Error reading YAML file: {e}")
             return None
