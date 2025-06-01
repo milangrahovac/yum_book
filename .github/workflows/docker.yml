@@ -5,7 +5,7 @@ on:
     branches: 
       - main
     paths-ignore:
-      - 'version.py'
+      - 'recipes/version.py'
 
 jobs:
 
@@ -62,7 +62,7 @@ jobs:
           patch=$((patch + 1))
           new_version="$major.$minor.$patch"
           echo "Bumping to $new_version"
-          echo "__version__ = \"$new_version\"" > version.py
+          echo "__version__ = \"$new_version\"" > recipes/version.py.py
           echo "new_version=$new_version" >> $GITHUB_OUTPUT
 
       - name: Commit and push version bump
@@ -70,7 +70,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add version.py
+          git add recipes/version.py
           git commit -m "chore: bump version to ${{ steps.bump_version.outputs.new_version }} [skip ci]" || echo "No changes to commit"
           git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
           git push origin main

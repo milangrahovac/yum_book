@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Recipe
+from .version import __version__
+
 # Create your views here.
 
 
@@ -11,6 +13,7 @@ def index(request):
     newest_recipes = Recipe.objects.all().order_by('-updated_at')[:3]
     top_recipes = Recipe.objects.all().order_by('-rating')[:3]
     return render(request, 'recipes/index.html', {
+        "app_version": __version__,
         'categories': categories,
         'newest_recipes': newest_recipes,
         'top_recipes': top_recipes
@@ -23,6 +26,7 @@ def recepie_detail(request, slug):
     categories = Category.objects.all()
     recipe = Recipe.objects.get(slug=slug)
     return render(request, 'recipes/recipe-detail.html', {
+        "app_version": __version__,
         'categories': categories,
         'recipe': recipe
     })
@@ -34,6 +38,7 @@ def all_recipes(request):
     categories = Category.objects.all()
     all_recipes = Recipe.objects.all().order_by('-rating')
     return render(request, 'recipes/all-recipes.html', {
+        "app_version": __version__,
         'categories': categories,
         'all_recipes': all_recipes
     })
@@ -51,6 +56,7 @@ def recipes_by_category(request, selected_category):
     recipes = Recipe.objects.filter(category=category_obj)
 
     return render(request, 'recipes/category.html', {
+        "app_version": __version__,
         'category': selected_category,
         'categories': categories,
         'selected_recipes': recipes,
