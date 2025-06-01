@@ -5,7 +5,8 @@ on:
     branches: 
       - main
       - devs
-
+    paths-ignore:
+      - 'version.py'
 jobs:
   lint:
     runs-on: ubuntu-latest
