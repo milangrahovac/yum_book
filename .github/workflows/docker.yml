@@ -73,7 +73,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           git add helm/Chart.yaml
-          git commit -m "chore: bump version to $NEW_VERSION [skip ci]" || echo "No changes to commit"
+          git commit -m "chore: bump version to {{ env.NEW_VERSION }} [skip ci]" || echo "No changes to commit"
           git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
           git push origin main
       
@@ -91,7 +91,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: mgrah/yum-book:$NEW_VERSION
+          tags: mgrah/yum-book:{{ env.NEW_VERSION }}
 
   # docker:
   #   needs: bump-version 
