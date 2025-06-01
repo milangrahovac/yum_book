@@ -62,7 +62,7 @@ jobs:
           patch=$((patch + 1))
           new_version="$major.$minor.$patch"
           echo "Bumping to $new_version"
-          echo "__version__ = \"$new_version\"" > myapp/version.py
+          echo "__version__ = \"$new_version\"" > version.py
           echo "new_version=$new_version" >> $GITHUB_OUTPUT
 
       - name: Commit and push version bump
