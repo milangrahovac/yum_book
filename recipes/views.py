@@ -59,6 +59,7 @@ def recipes_by_category(request, selected_category):
         'selected_recipes': recipes,
     })
 
+
 def get_chart_version(chart_path="helm/Chart.yaml"):
     with open(chart_path, 'r') as stream:
         try:
