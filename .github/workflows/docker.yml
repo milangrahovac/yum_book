@@ -69,7 +69,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
           git add version.py
           git commit -m "chore: bump version to ${{ steps.bump_version.outputs.new_version }} [skip ci]" || echo "No changes to commit"
           git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/https://github.com/milangrahovac/yum_book.git
