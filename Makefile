@@ -22,7 +22,6 @@ migrate: ## Applying database migrations.
 test: ## Run tests.
 	python3 manage.py test
 
-
 # Variables (you can edit these)
 IMAGE_NAME=yum-book
 IMAGE_TAG=latest
