@@ -8,7 +8,6 @@ def index(request):
     # View that renders the home page.
     # always return "categories" so dropdown menu can be created
     version = get_chart_version()
-    
     categories = Category.objects.all()
     newest_recipes = Recipe.objects.all().order_by('-updated_at')[:3]
     top_recipes = Recipe.objects.all().order_by('-rating')[:3]
@@ -58,6 +57,7 @@ def recipes_by_category(request, selected_category):
         'categories': categories,
         'selected_recipes': recipes,
     })
+
 
 def get_chart_version(chart_path="helm/Chart.yaml"):
     with open(chart_path, 'r') as stream:
