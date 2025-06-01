@@ -26,9 +26,3 @@ serviceAccount:
 
 ingress:
   enabled: false
-
-sqlite:
-  pvName: sqlite-pv
-  pvcName: sqlite-pvc
-  size: 100Mi
-  hostPath: /mnt/data/sqlite
