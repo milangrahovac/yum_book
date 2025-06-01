@@ -3,19 +3,13 @@ replicaCount: 2
 image:
   repository: mgrah/yum-book
   tag: latest
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 
 service:
-  name: yum-book-service
-  labels:
-    app: yum-book
   type: NodePort
   port: 8000
-  targetPort: 8000
   nodePort: 30080
-  selector:
-    app: yum-book-app
 
-containerPort: 8000
-
-resources: {}
+app:
+  name: yum-book-app
+  label: yum-book
