@@ -50,7 +50,7 @@ jobs:
       - name: Get current version from Chart.yaml
         id: get_version
         run: |
-          VERSION=$(grep '^version:' helm/Chart.yaml | awk '{ print $2 }')
+          VERSION=$(grep '^appVersion:' helm/Chart.yaml | awk '{ print $2 }')
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Current version: $VERSION"
 
