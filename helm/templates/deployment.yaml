@@ -21,10 +21,4 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8000
-          volumeMounts:
-            - name: sqlite-storage
-              mountPath: /app/db
-      volumes:
-        - name: sqlite-storage
-          persistentVolumeClaim:
-            claimName: {{ .Values.sqlite.pvcName }}
+
