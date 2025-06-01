@@ -6,7 +6,7 @@ on:
       - main
       - devs
     paths-ignore:
-      - 'recipes/version.py'
+      - 'helm/Chart.yaml'
 jobs:
   lint:
     runs-on: ubuntu-latest

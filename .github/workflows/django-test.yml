@@ -6,7 +6,7 @@ on:
       - main
       - devs
     paths-ignore:
-      - 'recipes/version.py'
+      - 'helm/Chart.yaml'
 jobs:
   test:
     if: contains(github.event.head_commit.message, '[skip ci]') == false
