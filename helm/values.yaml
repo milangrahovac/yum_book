@@ -13,3 +13,7 @@ service:
 app:
   name: yum-book-app
   label: yum-book
+
+serviceAccount:
+  create: false
+  name: ""
