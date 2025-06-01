@@ -91,7 +91,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: myrepo/yum-book:${{ env.NEW_VERSION }}
+          tags: mgrah/yum-book:${{ env.NEW_VERSION }}
 
   # docker:
   #   needs: bump-version 
