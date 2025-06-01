@@ -7,11 +7,14 @@ image:
 
 service:
   name: yum-book-service
+  selector:
+    app: yum-book
   labels:
     app: yum-book
   type: NodePort
   port: 8000
   nodePort: 30080
+  targetPort: 8000
 
 app:
   name: yum-book-app
