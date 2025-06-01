@@ -5,7 +5,7 @@ on:
     branches: 
       - main
     paths-ignore:
-      - 'recipes/version.py'
+      - 'helm/Chart.yaml'
 
 jobs:
 
@@ -47,31 +47,33 @@ jobs:
           source venv/bin/activate
           python manage.py test
 
-      - name: Get current version
+      - name: Get current version from Chart.yaml
         id: get_version
         run: |
-          version=$(grep "__version__" recipes/version.py | cut -d'"' -f2)
-          echo "Current version: $version"
-          echo "version=$version" >> $GITHUB_OUTPUT
+          VERSION=$(grep '^version:' helm/Chart.yaml | awk '{ print $2 }')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Current version: $VERSION"
 
       - name: Bump patch version
         id: bump_version
         run: |
-          old_version="${{ steps.get_version.outputs.version }}"
-          IFS='.' read -r major minor patch <<< "$old_version"
-          patch=$((patch + 1))
-          new_version="$major.$minor.$patch"
-          echo "Bumping to $new_version"
-          echo "__version__ = \"$new_version\"" > recipes/version.py
-          echo "new_version=$new_version" >> $GITHUB_OUTPUT
+          OLD_VERSION=${{ env.VERSION }}
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$OLD_VERSION"
+          PATCH=$((PATCH + 1))
+          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+          echo "New version: $NEW_VERSION"
+          # Replace version line in Chart.yaml
+          sed -i "s/^version: .*/version: $NEW_VERSION/" helm/Chart.yaml
+          sed -i "s/^appVersion: .*/appVersion: $NEW_VERSION/" helm/Chart.yaml
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
 
       - name: Commit and push version bump
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add recipes/version.py
-          git commit -m "chore: bump version to ${{ steps.bump_version.outputs.new_version }} [skip ci]" || echo "No changes to commit"
+          git add helm/Chart.yaml
+          git commit -m "chore: bump version to $NEW_VERSION [skip ci]" || echo "No changes to commit"
           git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
           git push origin main
       
