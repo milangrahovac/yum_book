@@ -37,7 +37,7 @@ spec:
             - name: uploads-volume
               mountPath: /app/uploads
 
-          volumes:
-            - name: uploads-volume
-              persistentVolumeClaim:
-                claimName: uploads-pvc
+      volumes:
+        - name: uploads-volume
+          persistentVolumeClaim:
+            claimName: uploads-pvc
