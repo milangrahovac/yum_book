@@ -100,7 +100,7 @@ DATABASES = {
         'NAME': os.environ.get('POSTGRES_DB', 'django'),
         'USER': os.environ.get('POSTGRES_USER', 'django'),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'django'),
-        'HOST': os.environ.get('POSTGRES_HOST', 'postgres'),
+        'HOST': os.environ.get('POSTGRES_HOST', 'yum-book'),
         'PORT': os.environ.get('POSTGRES_PORT', '5432'),
     }
 }
