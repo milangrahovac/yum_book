@@ -21,4 +21,23 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8000
+          env:
+            - name: POSTGRES_USER
+              value: {{ .Values.postgres.user | quote }}
+            - name: POSTGRES_PASSWORD
+              value: {{ .Values.postgres.password | quote }}
+            - name: POSTGRES_DB
+              value: {{ .Values.postgres.db | quote }}
+            - name: POSTGRES_HOST
+              value: postgres
+            - name: POSTGRES_PORT
+              value: "5432"
 
+          volumeMounts:
+            - name: uploads-volume
+              mountPath: /app/uploads
+
+          volumes:
+            - name: uploads-volume
+              persistentVolumeClaim:
+                claimName: uploads-pvc

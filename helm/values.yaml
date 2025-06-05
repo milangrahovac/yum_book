@@ -26,3 +26,14 @@ serviceAccount:
 
 ingress:
   enabled: false
+
+postgres:
+  user: django
+  password: django
+  db: django
+
+uploads:
+  storage: 50Mi
+
+postgresStorage:
+  storage: 50Mi
