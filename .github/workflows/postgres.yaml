@@ -1,4 +1,4 @@
-name: Build and Push to the Docker Repository
+name: Postgres
 
 on: 
   push:
