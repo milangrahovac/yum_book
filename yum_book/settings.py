@@ -94,14 +94,26 @@ WSGI_APPLICATION = 'yum_book.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('POSTGRES_DB', 'django'),
+#         'USER': os.environ.get('POSTGRES_USER', 'django'),
+#         'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'django'),
+#         'HOST': os.environ.get('POSTGRES_HOST', 'yum-book'),
+#         'PORT': os.environ.get('POSTGRES_PORT', '5432'),
+#     }
+# }
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('POSTGRES_DB', 'django'),
-        'USER': os.environ.get('POSTGRES_USER', 'django'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'django'),
-        'HOST': os.environ.get('POSTGRES_HOST', 'yum-book'),
-        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
+        'NAME': 'django',
+        'USER': 'django',
+        'PASSWORD': 'django',
+        'HOST': 'yum-book',  # <== This must match your Kubernetes service name
+        'PORT': '5432',
     }
 }
 
