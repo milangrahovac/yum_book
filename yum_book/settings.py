@@ -111,7 +111,7 @@ WSGI_APPLICATION = 'yum_book.wsgi.application'
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': 'django',
 #         'USER': 'django',
-#         'PASSWORD': 'django',
+#         'PASSWORD': 'postgres',
 #         'HOST': 'yum-book',  # <== This must match your Kubernetes service name
 #         'PORT': '5432',
 #     }
