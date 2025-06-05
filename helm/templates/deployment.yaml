@@ -17,11 +17,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}
-<<<<<<< HEAD
-          image: "{{ .Values.image.repository }}:{{ .Chart.postgres }}"
-=======
           image: "{{ .Values.image.repository }}:{{ .Chart.appVer }}"
->>>>>>> 9cf93f9 (updated postgresss)
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8000
