@@ -107,7 +107,7 @@ WSGI_APPLICATION = 'yum_book.wsgi.application'
 
 
 DATABASES = {
-    'default': {
+    'postgres': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'django',
         'USER': 'django',
