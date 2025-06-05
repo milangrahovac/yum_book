@@ -55,3 +55,6 @@ clean-cluster: ## clean kubernetes cluser.
 	kubectl delete services -l app=yum-book
 	kubectl delete -f kubernetes/yum-book-deployment.yaml
 	kubectl delete -f kubernetes/yum-book-service.yaml
+	
+# minikube service yum-book-service -n yum-book
+# kubectl port-forward -n argocd svc/argocd-server 8080:443
