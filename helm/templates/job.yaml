@@ -2,9 +2,12 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: create-superuser
+  annotations:
+    "helm.sh/resource-policy": keep
 spec:
   template:
     spec:
+      ttlSecondsAfterFinished: 300  # Delete 5 minutes after completion
       containers:
         - name: create-superuser-{{ now | unixEpoch }}
           image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
