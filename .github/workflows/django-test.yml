@@ -5,6 +5,7 @@ on:
     branches: 
       - main
       - devs
+      - postgres
     paths-ignore:
       - 'helm/Chart.yaml'
 jobs:
