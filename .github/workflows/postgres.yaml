@@ -60,16 +60,6 @@ jobs:
           # Replace version line in Chart.yaml
           sed -i "s/^postgres: .*/version: $NEW_VERSION/" helm/Chart.yaml
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
-
-      - name: Commit and push version bump
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          git add helm/Chart.yaml
-          git commit -m "chore: bump version to $NEW_VERSION [skip ci]" || echo "No changes to commit"
-          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
-          git push origin main
       
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -85,4 +75,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: mgrah/yum-book:${{ env.NEW_VERSION }}
+          tags: mgrah/yum-book:latest
