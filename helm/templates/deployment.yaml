@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Chart.appVersion }}"
+          image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8000
