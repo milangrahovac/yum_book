@@ -23,8 +23,7 @@ spec:
               value: postgres
             - name: POSTGRES_PORT
               value: "5432"
-
-                        - name: DATABASE_URL
+            - name: DATABASE_URL
               value: "postgres://{{ .Values.postgres.user }}:{{ .Values.postgres.password }}@{{ .Values.postgres.host }}:{{ .Values.postgres.port }}/{{ .Values.postgres.db }}"
           command: ["/bin/sh", "-c"]
           args:
