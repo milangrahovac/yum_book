@@ -2,21 +2,17 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: create-superuser
-  # annotations:
-  #   "helm.sh/resource-policy": keep
 spec:
   template:
     spec:
-      ttlSecondsAfterFinished: 300  # Delete 5 minutes after completion
       containers:
-        - name: create-superuser-{{ now | unixEpoch }}
+        - name: create-superuser
           image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
-        #   command: ["sh", "-c", "python manage.py shell < create_superuser.py"]
           command: ["/bin/sh", "-c"]
           args:
             - |
-              python manage.py makemigrations && \
-              python manage.py migrate && \
+              python manage.py makemigrations &&
+              python manage.py migrate &&
               python manage.py shell <<EOF
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -25,14 +21,15 @@ if not User.objects.filter(username='admin').exists():
 EOF
           env:
             - name: POSTGRES_USER
-              value: {{ .Values.postgres.user | quote }}
+              value: "{{ .Values.postgres.user }}"
             - name: POSTGRES_PASSWORD
-              value: {{ .Values.postgres.password | quote }}
+              value: "{{ .Values.postgres.password }}"
             - name: POSTGRES_DB
-              value: {{ .Values.postgres.db | quote }}
+              value: "{{ .Values.postgres.db }}"
             - name: POSTGRES_HOST
-              value: postgres
+              value: "{{ .Values.postgres.host }}"
             - name: POSTGRES_PORT
-              value: "5432"
-      restartPolicy: Never
+              value: "{{ .Values.postgres.port }}"
+      restartPolicy: OnFailure
   backoffLimit: 5
+
