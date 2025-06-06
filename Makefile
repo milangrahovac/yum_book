@@ -60,10 +60,12 @@ clean-cluster: ## clean kubernetes cluser.
 # kubectl port-forward -n argocd svc/argocd-server 8080:443
 
 
-1. start minikube
-minikube start
+# 1. start minikube
+# minikube start
 
-2. forward argo-cd port
-kubectl port-forward -n argocd svc/argocd-server 8080:443
+# 2. forward argo-cd port
+# kubectl port-forward -n argocd svc/argocd-server 8080:443
 
-3.  kubectl apply -f argocd/helm.yaml
+# 3. kubectl apply -f argocd/helm.yaml
+
+# 4. minikube service yum-book-service -n yum-book
