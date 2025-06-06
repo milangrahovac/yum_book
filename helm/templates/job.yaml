@@ -2,8 +2,8 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: create-superuser
-  annotations:
-    "helm.sh/resource-policy": keep
+  # annotations:
+  #   "helm.sh/resource-policy": keep
 spec:
   template:
     spec:
@@ -12,17 +12,16 @@ spec:
         - name: create-superuser-{{ now | unixEpoch }}
           image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
         #   command: ["sh", "-c", "python manage.py shell < create_superuser.py"]
+          command: ["/bin/sh", "-c"]
           args:
             - |
-              python manage.py makemigrations &&
-              python manage.py migrate &&
-              python manage.py shell < /app/create_superuser.py
-
+              python manage.py makemigrations && \
+              python manage.py migrate && \
               python manage.py shell <<EOF
 from django.contrib.auth import get_user_model
 User = get_user_model()
 if not User.objects.filter(username='admin').exists():
-User.objects.create_superuser('admin', 'admin@example.com', 'yumpass')
+    User.objects.create_superuser('admin', 'admin@example.com', 'yumpass')
 EOF
           env:
             - name: POSTGRES_USER
