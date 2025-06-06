@@ -31,6 +31,8 @@ postgres:
   user: django
   password: django
   db: django
+  port: postgres
+  host: 5432
 
 uploads:
   storage: 50Mi
