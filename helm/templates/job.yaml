@@ -17,7 +17,6 @@ spec:
             - |
               python manage.py makemigrations &&
               python manage.py migrate &&
-              python manage.py shell < /app/create_superuser.py
           env:
             - name: POSTGRES_USER
               value: {{ .Values.postgres.user | quote }}
