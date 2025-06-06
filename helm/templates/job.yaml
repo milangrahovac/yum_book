@@ -1,9 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: create-superuser
-  annotations:
-    "helm.sh/resource-policy": keep
+  name: create-superuser-{{ now | unixEpoch }}
 spec:
   template:
     spec:
@@ -11,12 +9,9 @@ spec:
       containers:
         - name: create-superuser-{{ now | unixEpoch }}
           image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
-        #   command: ["sh", "-c", "python manage.py shell < create_superuser.py"]
-          command: ["/bin/sh", "-c"]
-          args:
-            - |
-              python manage.py makemigrations &&
-              python manage.py migrate &&
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
           env:
             - name: POSTGRES_USER
               value: {{ .Values.postgres.user | quote }}
@@ -28,5 +23,10 @@ spec:
               value: postgres
             - name: POSTGRES_PORT
               value: "5432"
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              python manage.py makemigrations &&
+              python manage.py migrate &&
       restartPolicy: Never
   backoffLimit: 5
