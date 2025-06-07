@@ -16,11 +16,11 @@ jobs:
     
     services:
       postgres:
-        image: postgres:14
+        image: postgres:15
         env:
-          POSTGRES_DB: mydb
-          POSTGRES_USER: myuser
-          POSTGRES_PASSWORD: mypassword
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testpass
+          POSTGRES_DB: testdb
         ports:
           - 5432:5432
         options: >-
@@ -29,14 +29,10 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
-    # env:
-    #   DB_NAME: mydb
-    #   DB_USER: myuser
-    #   DB_PASSWORD: mypassword
-    #   DB_HOST: localhost
-    #   DB_PORT: 5432
-    #   # Optional: for Django settings.py
-    #   DATABASE_URL: postgres://myuser:mypassword@localhost:5432/mydb
+    env:
+      DATABASE_URL: postgres://testuser:testpass@localhost:5432/testdb
+      # If your Django uses DJANGO_SETTINGS_MODULE explicitly:
+      DJANGO_SETTINGS_MODULE: your_project_name.settings
 
     steps:
       - name: Checkout code
@@ -52,11 +48,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # - name: Create database
-      #   run: |
-      #     if [ ! -f db.sqlite3 ]; then
-      #       touch db.sqlite3
-      #     fi
+      - name: Wait for Postgres to be ready
+        run: |
+          until pg_isready -h localhost -p 5432; do
+            echo "Waiting for PostgreSQL..."
+            sleep 1
+          done
 
       - name: Run migrations
         run: |
