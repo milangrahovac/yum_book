@@ -29,14 +29,14 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
-    env:
-      DB_NAME: mydb
-      DB_USER: myuser
-      DB_PASSWORD: mypassword
-      DB_HOST: localhost
-      DB_PORT: 5432
-      # Optional: for Django settings.py
-      DATABASE_URL: postgres://myuser:mypassword@localhost:5432/mydb
+    # env:
+    #   DB_NAME: mydb
+    #   DB_USER: myuser
+    #   DB_PASSWORD: mypassword
+    #   DB_HOST: localhost
+    #   DB_PORT: 5432
+    #   # Optional: for Django settings.py
+    #   DATABASE_URL: postgres://myuser:mypassword@localhost:5432/mydb
 
     steps:
       - name: Checkout code
@@ -52,11 +52,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Create database
-        run: |
-          if [ ! -f db.sqlite3 ]; then
-            touch db.sqlite3
-          fi
+      # - name: Create database
+      #   run: |
+      #     if [ ! -f db.sqlite3 ]; then
+      #       touch db.sqlite3
+      #     fi
 
       - name: Run migrations
         run: |

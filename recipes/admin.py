@@ -3,11 +3,6 @@ from .models import Recipe, Category
 
 # Register your models here.
 
-
-# class IngredientAdmin(admin.ModelAdmin):
-#     list_display = ('name', )
-
-
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', )
 
