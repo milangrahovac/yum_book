@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: yum-app-pv
+  name: uploads-pv
 spec:
   capacity:
     storage: {{ .Values.uploads.storage }}
