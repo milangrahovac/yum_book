@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: postgres
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: postgres
@@ -16,7 +16,7 @@ spec:
         - name: postgres
           image: postgres:15
           ports:
-            - containerPort:  {{ .Values.postgres.port }}
+            - containerPort:  {{ .Values.postgres.port | quote }}
           env:
             - name: POSTGRES_USER
               value: {{ .Values.postgres.user | quote }}
@@ -37,7 +37,8 @@ kind: Service
 metadata:
   name: postgres
 spec:
+  clusterIP: None  # HEADLESS
   ports:
-    - port: 5432
+    - port: {{ .Values.postgres.port | quote }}
   selector:
     app: postgres
