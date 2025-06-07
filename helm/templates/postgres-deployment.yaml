@@ -16,7 +16,7 @@ spec:
         - name: postgres
           image: postgres:15
           ports:
-            - containerPort:  {{ .Values.postgres.port | quote }}
+            - containerPort:  {{ .Values.postgres.port }}
           env:
             - name: POSTGRES_USER
               value: {{ .Values.postgres.user | quote }}
