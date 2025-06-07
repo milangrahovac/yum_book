@@ -37,7 +37,7 @@ kind: Service
 metadata:
   name: postgres
 spec:
-  clusterIP: None  # HEADLESS
+  # clusterIP: None  # HEADLESS
   ports:
     - port: {{ .Values.postgres.port }}
   selector:
