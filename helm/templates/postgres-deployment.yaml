@@ -39,6 +39,6 @@ metadata:
 spec:
   clusterIP: None  # HEADLESS
   ports:
-    - port: {{ .Values.postgres.port | quote }}
+    - port: {{ .Values.postgres.port }}
   selector:
     app: postgres
