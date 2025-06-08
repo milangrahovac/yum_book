@@ -31,9 +31,9 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - |
-              python create_superuser.py && \
               python manage.py makemigrations && \
-              python manage.py migrate
+              python manage.py migrate && \
+              python create_superuser.py
       restartPolicy: Never
   backoffLimit: 5
 
