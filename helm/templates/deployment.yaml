@@ -34,6 +34,8 @@ spec:
               value: {{ .Values.postgres.port | quote }}
             - name: DATABASE_URL
               value: "postgres://{{ .Values.postgres.user }}:{{ .Values.postgres.password }}@{{ .Values.postgres.host }}:{{ .Values.postgres.port }}/{{ .Values.postgres.db }}"
+            - name: POSTGRES
+              value: true
           volumeMounts:
             - name: uploads-volume
               mountPath: /app/uploads

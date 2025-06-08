@@ -33,7 +33,7 @@ jobs:
       DATABASE_URL: postgres://testuser:testpass@localhost:5432/testdb
       # If your Django uses DJANGO_SETTINGS_MODULE explicitly:
       DJANGO_SETTINGS_MODULE: yum_book.settings
-
+      POSTGRES: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -57,9 +57,10 @@ jobs:
 
       - name: Run migrations
         run: |
-          python3 manage.py makemigrations
-          python manage.py migrate
-
+          python3 manage.py makemigrations && \
+          python manage.py migrate && \
+          python create_superuser.py
+          
       - name: Run tests
         run: python manage.py test
 

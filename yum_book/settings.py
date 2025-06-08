@@ -118,13 +118,30 @@ WSGI_APPLICATION = 'yum_book.wsgi.application'
 #     }
 # }
 
-import dj_database_url
+# works with postgres
+# import dj_database_url
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL')
-    )
-}
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=os.getenv('DATABASE_URL')
+#     )
+# }
+
+
+if os.getenv("POSTGRES"):
+    DATABASES = {
+        'default': dj_database_url.config(default='postgres://django:django@postgres:5432/django')
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
