@@ -22,14 +22,6 @@ def index(request):
     })
 
 
-def health_check(request):
-    try:
-        connections['default'].cursor()
-        return JsonResponse({"status": "ok"})
-    except OperationalError:
-        return JsonResponse({"status": "error"}, status=500)
-
-
 def recepie_detail(request, slug):
     # Single recipe details page
     # always return "categories" so dropdown menu can be created
