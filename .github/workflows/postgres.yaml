@@ -93,8 +93,6 @@ jobs:
           git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
           git push origin postgres
           
-
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
