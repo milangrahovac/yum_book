@@ -1,4 +1,7 @@
 from django.shortcuts import render, get_object_or_404
+from django.db import connections
+from django.db.utils import OperationalError
+from django.http import JsonResponse
 from .models import Category, Recipe
 import yaml
 # Create your views here.
@@ -17,6 +20,14 @@ def index(request):
         'newest_recipes': newest_recipes,
         'top_recipes': top_recipes
     })
+
+
+def health_check(request):
+    try:
+        connections['default'].cursor()
+        return JsonResponse({"status": "ok"})
+    except OperationalError:
+        return JsonResponse({"status": "error"}, status=500)
 
 
 def recepie_detail(request, slug):
