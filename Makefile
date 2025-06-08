@@ -69,3 +69,14 @@ clean-cluster: ## clean kubernetes cluser.
 # 3. kubectl apply -f argocd/helm.yaml
 
 # 4. minikube service yum-book-service -n yum-book
+
+
+argo:
+	kubectl create namespace argocd
+	kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+# kubectl get pods -n argocd
+# kubectl port-forward -n argocd svc/argocd-server 8080:443
+
+# kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d && echo
+# kubectl delete secret argocd-initial-admin-secret -n argocd
