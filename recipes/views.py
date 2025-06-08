@@ -1,7 +1,5 @@
 from django.shortcuts import render, get_object_or_404
 from django.db import connections
-from django.db.utils import OperationalError
-from django.http import JsonResponse
 from .models import Category, Recipe
 import yaml
 # Create your views here.
