@@ -25,12 +25,18 @@ spec:
               value: {{ .Values.postgres.port | quote }}
             - name: DATABASE_URL
               value: "postgres://{{ .Values.postgres.user }}:{{ .Values.postgres.password }}@{{ .Values.postgres.host }}:{{ .Values.postgres.port }}/{{ .Values.postgres.db }}"
+          workingDir: /app
           command: ["/bin/sh", "-c"]
           args:
             - |
+              python create_superuser.py && \
               python manage.py makemigrations && \
-              python manage.py migrate && \
-              python create_superuser.py
+              python manage.py migrate
+      restartPolicy: Never
+  backoffLimit: 5
+
+
+
           # command: ["python", "manage.py", "shell", "-c"]
           # args:
           #   - "exec(open('create_superuser.py').read())"
@@ -44,7 +50,3 @@ spec:
           #       User = get_user_model();
           #       if not User.objects.filter(username='admin').exists():
           #         User.objects.create_superuser('admin', '', 'yumpass')"
-      restartPolicy: Never
-  backoffLimit: 5
-
-
