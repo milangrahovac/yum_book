@@ -26,16 +26,16 @@ spec:
               value: {{ .Values.postgres.user | quote }}
             - name: POSTGRES_PASSWORD
               value: {{ .Values.postgres.password | quote }}
+            - name: POSTGRES_HOST
+              value: {{ .Values.postgres.host | quote }}
             - name: POSTGRES_DB
               value: {{ .Values.postgres.db | quote }}
-            - name: POSTGRES_HOST
-              value: postgres
             - name: POSTGRES_PORT
               value: {{ .Values.postgres.port | quote }}
             - name: DATABASE_URL
               value: "postgres://{{ .Values.postgres.user }}:{{ .Values.postgres.password }}@{{ .Values.postgres.host }}:{{ .Values.postgres.port }}/{{ .Values.postgres.db }}"
             - name: POSTGRES
-              value: true
+              value: {{ .Values.postgres.enabled | quote }}
           volumeMounts:
             - name: uploads-volume
               mountPath: /app/uploads

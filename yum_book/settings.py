@@ -128,9 +128,21 @@ WSGI_APPLICATION = 'yum_book.wsgi.application'
 # }
 
 
+# if os.getenv("POSTGRES"):
+#     DATABASES = {
+#         'default': dj_database_url.config(default='postgres://django:django@postgres:5432/django')
+#     }
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+#     }
+
 if os.getenv("POSTGRES"):
     DATABASES = {
-        'default': dj_database_url.config(default='postgres://django:django@postgres:5432/django')
+        'default': dj_database_url.config(default=os.getenv("DATABASE_URL"))
     }
 else:
     DATABASES = {
@@ -139,8 +151,6 @@ else:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-
-
 
 
 # Password validation

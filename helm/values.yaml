@@ -33,6 +33,7 @@ postgres:
   db: django
   port: 5432
   host: postgres
+  enabled: true
 
 uploads:
   storage: 50Mi
