@@ -1,4 +1,4 @@
-## Deploying Your Django App on Minikube with Argo CD
+## Deploying Yum Book Django App on Minikube with Argo CD
 
 ✅ Prerequisites
 - Minikube installed
