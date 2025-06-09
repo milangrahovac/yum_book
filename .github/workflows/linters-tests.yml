@@ -6,7 +6,8 @@ on:
       - '**'
     paths-ignore:
       - 'helm/Chart.yaml'
-
+      - '**/README.md'
+      - 'Makefile'
 jobs:
 
   linters-and-tests:
