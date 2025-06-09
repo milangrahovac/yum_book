@@ -1,0 +1,28 @@
+1.  minikube start
+
+2. Install and run ArgoCD  
+To use kind: Application with Argo CD, you must install Argo CD's CRDs first.
+
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+Wait a few seconds for all resources to become ready:
+
+
+3. get ArgoCD password
+Default username: admin
+The default pasword is auto-generated and stored in Kubernetes secret. You can retriveve it with:
+kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d && echo
+
+3. kubectl port-forward -n argocd svc/argocd-server 8080:443
+
+4. Login to ArgoCD
+127.0.0.1:8080
+
+4. 3. Apply Application 
+kubectl apply -f argocd/yum-book-app.yaml
+
+
+5. Wait a few seconds for all resources to become ready:
+minikube service yum-book-service -n yum-book
+

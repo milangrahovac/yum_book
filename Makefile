@@ -1,3 +1,5 @@
+DB_FILE = db.sqlite3
+
 .PHONY: targets help
 targets help: ## List all targets with short descriptions.
 	@echo "List of all targets:"
@@ -9,8 +11,21 @@ targets help: ## List all targets with short descriptions.
 stop: ## Stop the server on port 8000.
 	sh stop_server.sh
 
+
 .PHONY: run
-run: stop ## Stop server on port 8000 if running then run django server on port 8000.
+run: stop requirements ## Stop server on port 8000 if running then run django server on port 8000.
+	@if [ ! -f $(DB_FILE) ]; then \
+		touch $(DB_FILE); \
+		echo "Created: $(DB_FILE)"; \
+	else \
+		echo "Already exists: $(DB_FILE)"; \
+	fi
+	sleep 1
+	python3 manage.py makemigrations
+	sleep 1
+	python3 manage.py migrate
+	sleep 1
+	python3 create_superuser.py
 	sleep 1
 	python3 manage.py runserver
 
@@ -55,3 +70,8 @@ clean-cluster: ## clean kubernetes cluser.
 	kubectl delete services -l app=yum-book
 	kubectl delete -f kubernetes/yum-book-deployment.yaml
 	kubectl delete -f kubernetes/yum-book-service.yaml
+
+.PHONY: argo
+argo: ## build andrun argocd 
+	kubectl create namespace argocd
+	kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml

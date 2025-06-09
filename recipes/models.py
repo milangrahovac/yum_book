@@ -2,6 +2,8 @@ from django.db import models
 from django.core.validators import MinLengthValidator, MaxLengthValidator, MinValueValidator, MaxValueValidator
 import os
 from django.conf import settings
+from django.utils.text import slugify
+import uuid
 
 
 class Category(models.Model):
@@ -21,6 +23,16 @@ class Category(models.Model):
         super().save(*args, **kwargs)
 
 
+# Define the dynamic upload path. Make filename unique by adding uuid4 hex sufix.
+# This ensures every uploaded image is saved with a unique avoiding conflicts and overwriting.
+def recipe_image_upload_to(instance, filename):
+    name, ext = os.path.splitext(filename)
+    # timestamp = int(time.time())
+    unique_id = uuid.uuid4().hex
+    safe_name = slugify(name)
+    return f'images/{safe_name}_{unique_id}{ext}'
+
+
 class Recipe(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, db_index=True)
@@ -31,7 +43,9 @@ class Recipe(models.Model):
         validators=[MinLengthValidator(10), MaxLengthValidator(2000)])
     rating = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(5)])
-    image = models.ImageField(upload_to='images')
+    # image = models.ImageField(upload_to='images')
+    image = models.ImageField(upload_to=recipe_image_upload_to)
+
     date = models.DateField(auto_now=True)
     # captures creation time
     created_at = models.DateTimeField(auto_now_add=True)

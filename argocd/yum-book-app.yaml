@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: yum-book-helm
+  name: yum-book-argocd-app
   namespace: argocd
 spec:
   project: default
 
   source:
     repoURL: "https://github.com/milangrahovac/yum_book.git"
-    targetRevision: HEAD # Or a specific branch/tag like "main"
+    targetRevision: postgres # Or a specific branch/tag like "main"
     path: helm
     helm:
       valueFiles:

@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: create-superuser-{{ now | unixEpoch }}
+spec:
+  template:
+    spec:
+      ttlSecondsAfterFinished: 300  # Delete 5 minutes after completion
+      containers:
+        - name: create-superuser-{{ now | unixEpoch }}
+          image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          env:
+            - name: POSTGRES_USER
+              value: {{ .Values.postgres.user | quote }}
+            - name: POSTGRES_PASSWORD
+              value: {{ .Values.postgres.password | quote }}
+            - name: POSTGRES_HOST
+              value: {{ .Values.postgres.host | quote }}
+            - name: POSTGRES_DB
+              value: {{ .Values.postgres.db | quote }}
+            - name: POSTGRES_PORT
+              value: {{ .Values.postgres.port | quote }}
+            - name: DATABASE_URL
+              value: "postgres://{{ .Values.postgres.user }}:{{ .Values.postgres.password }}@{{ .Values.postgres.host }}:{{ .Values.postgres.port }}/{{ .Values.postgres.db }}"
+            - name: POSTGRES
+              value: {{ .Values.postgres.enabled | quote }}
+          workingDir: /app
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              python manage.py migrate && \
+              python create_superuser.py
+      restartPolicy: Never
+  backoffLimit: 5
+
+# python manage.py makemigrations && \

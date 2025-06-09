@@ -3,7 +3,7 @@ replicaCount: 2
 image:
   repository: mgrah/yum-book
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 service:
   name: yum-book-service
@@ -26,3 +26,17 @@ serviceAccount:
 
 ingress:
   enabled: false
+
+postgres:
+  user: django
+  password: django
+  db: django
+  port: 5432
+  host: postgres
+  enabled: true
+
+uploads:
+  storage: 50Mi
+
+postgresStorage:
+  storage: 50Mi
