@@ -22,6 +22,7 @@ class Category(models.Model):
         self.name = self.name.lower().title()
         super().save(*args, **kwargs)
 
+
 # Define the dynamic upload path. Make filename unique by adding uuid4 hex sufix. 
 # This ensures every uploaded image is saved with a unique avoiding conflicts and overwriting.
 def recipe_image_upload_to(instance, filename):
@@ -30,6 +31,7 @@ def recipe_image_upload_to(instance, filename):
     unique_id = uuid.uuid4().hex
     safe_name = slugify(name)
     return f'images/{safe_name}_{unique_id}{ext}'
+
 
 class Recipe(models.Model):
     name = models.CharField(max_length=200)

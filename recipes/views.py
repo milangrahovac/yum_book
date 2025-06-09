@@ -1,5 +1,4 @@
 from django.shortcuts import render, get_object_or_404
-from django.db import connections
 from .models import Category, Recipe
 import yaml
 # Create your views here.
