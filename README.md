@@ -29,7 +29,7 @@ You can run the application in two ways, depending on your environment and needs
 **Option 1**: Run Locally (for development)
 This is best if you're testing, developing, or making changes locally.<br>
 **Option 2**: Run in Kubernetes Cluster.
-If you want to deploy and run the app in a cluster using Argo CD and Helm, follow the instructions here:
+If you want to deploy and run the app in a cluster using Argo CD and Helm, follow the instructions [Here](argocd/README.md).
 
 ### Here is the instruction on how to run application locally
 1. Clone the repository and navigate to the project folder: <br>
