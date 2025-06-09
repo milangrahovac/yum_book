@@ -33,24 +33,35 @@ If you want to deploy and run the app in a cluster using Argo CD and Helm, follo
 
 ### Here is the instruction on how to run application locally
 1. Clone the repository and navigate to the project folder: <br>
-```git clone https://github.com/milangrahovac/yum_book.git```
+```
+git clone https://github.com/milangrahovac/yum_book.git
+```
 
 2. Navigate to yum_book folder and then set up a virtual environment. 
 - Create the virtual environment: <br>
-```python3 -m venv venv```
-
+```
+python3 -m venv venv
+```
 - Activate the Virtual Environment: <br>
-```source venv/bin/activate```
+```
+source venv/bin/activate
+```
 
 3. Install dependencies: <br>
-```make requirements```
+```
+make requirements
+```
 
 4. Set Up the Database: <br>
 - To store application data, you need to create a SQLite database file ***db.sqlite3*** in the root folder as its database and create the database shema. This command also creates admin user. You only need to run this once, when setting up the project for the first time.<br>
-```make db```
+```
+make db
+```
 
 5. Run the development server:<br>
-```make run```
+```
+make run
+```
 
 
 6. Open ```http://127.0.0.1:8000``` in your browser to start exploring the app.
@@ -84,8 +95,14 @@ Once you have cloned the repository, installed the virtual environment, set up t
 ### Using Makefile
 Once you have cloned the repository, installed the virtual environment, set up the database, and created a superuser with all the steps from the [Getting Started](#getting-started) section, you can easily run and stop the application using the Makefile. 
 1. Navigate to yum_book folder then Activate the virtual environment: <br>
-```source venv/bin/activate```
+```
+source venv/bin/activate
+```
 2. Run the application: <br>
-```make run```
+```
+make run
+```
 3. Stop the aplication: <br>
-```make stop```
+```
+make stop
+```
