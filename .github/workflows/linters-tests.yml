@@ -1,15 +1,17 @@
-name: Lint Django Application
+name: Linters and Tests
 
 on: 
   push:
     branches: 
-      - main
-      - devs
-      - postgres
+      - '**'
     paths-ignore:
       - 'helm/Chart.yaml'
+
 jobs:
+  
   lint:
+    if: contains(github.event.head_commit.message, '[skip ci]') == false
+
     runs-on: ubuntu-latest
 
     steps:
@@ -29,3 +31,17 @@ jobs:
           
       - name: Run flake8
         run: flake8 . --exclude=venv,migrations --max-line-length=120
+
+      - name: Create database if not exists
+        run: |
+          if [ ! -f db.sqlite3 ]; then
+            touch db.sqlite3
+          fi
+
+      - name: Run migrations
+        run: |
+          python3 manage.py makemigrations
+          python manage.py migrate
+
+      - name: Run tests
+        run: python manage.py test

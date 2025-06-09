@@ -2,7 +2,7 @@
 
 # Check if the port 5000 is already in use. 
 # If YES, stop the process."
-port=8080
+port=8000
 
 if lsof -Pi :$port -sTCP:LISTEN -t >/dev/null ; then
     echo "Something is already running on port $port."

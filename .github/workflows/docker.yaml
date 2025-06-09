@@ -1,15 +1,51 @@
-name: Postgres
+name:  Build and Push to the Docker Repository
 
 on: 
   push:
     branches: 
-      - postgres
+      - main
     paths-ignore:
       - 'helm/Chart.yaml'
 
 jobs:
 
-  docker:
+  lint-and-test:
+    if: contains(github.event.head_commit.message, '[skip ci]') == false
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies and linter
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install flake8  
+          
+      - name: Run flake8
+        run: flake8 . --exclude=venv,migrations --max-line-length=120
+
+      - name: Create database if not exists
+        run: |
+          if [ ! -f db.sqlite3 ]; then
+            touch db.sqlite3
+          fi
+
+      - name: Run migrations
+        run: |
+          python3 manage.py makemigrations
+          python manage.py migrate
+
+      - name: Run tests
+        run: python manage.py test
+
+  postgres:
     if: contains(github.event.head_commit.message, '[skip ci]') == false
 
     runs-on: ubuntu-latest
@@ -31,9 +67,9 @@ jobs:
 
     env:
       DATABASE_URL: postgres://testuser:testpass@localhost:5432/testdb
-      # If your Django uses DJANGO_SETTINGS_MODULE explicitly:
       DJANGO_SETTINGS_MODULE: yum_book.settings
       POSTGRES: true
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -55,15 +91,40 @@ jobs:
             sleep 1
           done
 
-      - name: Run migrations
+      - name: Run migrations and create a superuser
         run: |
           python3 manage.py makemigrations && \
           python manage.py migrate && \
           python create_superuser.py
-          
+
+  docker:
+    if: contains(github.event.head_commit.message, '[skip ci]') == false
+    runs-on: ubuntu-latest
+    needs: 
+      - lint-and-test
+      - postgres
+      
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12' 
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
       - name: Run tests
         run: python manage.py test
 
+      - name: Make migrations
+        run:  python3 manage.py makemigrations
+          
       - name: Get current version from Chart.yaml
         id: get_version
         run: |
@@ -91,7 +152,7 @@ jobs:
           git add helm/Chart.yaml
           git commit -m "chore: bump version to $NEW_VERSION [skip ci]" || echo "No changes to commit"
           git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
-          git push origin postgres
+          git push origin main
           
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3

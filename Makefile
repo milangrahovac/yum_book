@@ -1,3 +1,5 @@
+DB_FILE = db.sqlite3
+
 .PHONY: targets help
 targets help: ## List all targets with short descriptions.
 	@echo "List of all targets:"
@@ -9,8 +11,21 @@ targets help: ## List all targets with short descriptions.
 stop: ## Stop the server on port 8000.
 	sh stop_server.sh
 
+
 .PHONY: run
-run: stop ## Stop server on port 8000 if running then run django server on port 8000.
+run: stop requirements ## Stop server on port 8000 if running then run django server on port 8000.
+	@if [ ! -f $(DB_FILE) ]; then \
+		touch $(DB_FILE); \
+		echo "Created: $(DB_FILE)"; \
+	else \
+		echo "Already exists: $(DB_FILE)"; \
+	fi
+	sleep 1
+	python3 manage.py makemigrations
+	sleep 1
+	python3 manage.py migrate
+	sleep 1
+	python3 create_superuser.py
 	sleep 1
 	python3 manage.py runserver
 
@@ -55,28 +70,8 @@ clean-cluster: ## clean kubernetes cluser.
 	kubectl delete services -l app=yum-book
 	kubectl delete -f kubernetes/yum-book-deployment.yaml
 	kubectl delete -f kubernetes/yum-book-service.yaml
-	
-# minikube service yum-book-service -n yum-book
-# kubectl port-forward -n argocd svc/argocd-server 8080:443
 
-
-# 1. start minikube
-# minikube start
-
-# 2. forward argo-cd port
-# kubectl port-forward -n argocd svc/argocd-server 8080:443
-
-# 3. kubectl apply -f argocd/helm.yaml
-
-# 4. minikube service yum-book-service -n yum-book
-
-
-argo:
+.PHONY: argo
+argo: ## build andrun argocd 
 	kubectl create namespace argocd
 	kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-
-# kubectl get pods -n argocd
-# kubectl port-forward -n argocd svc/argocd-server 8080:443
-
-# kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d && echo
-# kubectl delete secret argocd-initial-admin-secret -n argocd

@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: yum-book-argocd-app
+  name: yumbook-argocd-app
   namespace: argocd # Argo CD is usually installed in the 'argocd' namespace
 spec:
   project: default

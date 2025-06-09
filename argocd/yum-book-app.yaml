@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: yum-book-helm
+  name: yum-book-argocd-app
   namespace: argocd
 spec:
   project: default
