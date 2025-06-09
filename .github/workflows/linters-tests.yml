@@ -6,13 +6,13 @@ on:
       - '**'
     paths-ignore:
       - 'helm/Chart.yaml'
+      - 'README.md'
       - '**/README.md'
       - 'Makefile'
 jobs:
 
   linters-and-tests:
     if: contains(github.event.head_commit.message, '[skip ci]') == false
-
     runs-on: ubuntu-latest
 
     steps:
@@ -50,7 +50,6 @@ jobs:
   test-postgres:
     if: contains(github.event.head_commit.message, '[skip ci]') == false
     runs-on: ubuntu-latest
-    needs: linters-and-tests
 
     services:
       postgres:
