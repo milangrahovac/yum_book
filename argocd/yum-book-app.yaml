@@ -8,7 +8,7 @@ spec:
 
   source:
     repoURL: "https://github.com/milangrahovac/yum_book.git"
-    targetRevision: postgres # Or a specific branch/tag like "main"
+    targetRevision: HEAD # Or a specific branch/tag like "main"
     path: helm
     helm:
       valueFiles:
