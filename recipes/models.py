@@ -88,6 +88,5 @@ class Recipe(models.Model):
         # Call the superclass's delete method to remove the instance from the database
         super().delete(*args, **kwargs)
 
-
     class Meta:
         verbose_name_plural = 'Recepies'
