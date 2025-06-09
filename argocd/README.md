@@ -20,7 +20,7 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 ```
 kubectl get pods -n argocd
 ```
-<br>
+
 4.  🔐 Get Argo CD Initial Password
 ```
 kubectl get secret argocd-initial-admin-secret -n argocd \
@@ -36,7 +36,7 @@ Then open your browser and visit:
 ```
 http://localhost:8080
 ```
-5. Log in to ArgoCD UI using:
+Log in to ArgoCD UI using:
 
 - Username: admin
 - Password: (from step 4)
