@@ -7,34 +7,22 @@ targets help: ## List all targets with short descriptions.
 	grep -E '^[\%\/\.0-9a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | \
 	awk -v len=$$((len+1)) -F ':.*?## ' '{ printf "%-*s - %s \n", len, $$1, $$2 }' | sort
 
+.PHONY: run
+run: stop requirements db ## Stop server on port 8000 if running then run django server on port 8000.
+	python3 manage.py runserver
+
 .PHONY: stop
 stop: ## Stop the server on port 8000.
 	sh stop_server.sh
-
-
-.PHONY: run
-run: stop requirements ## Stop server on port 8000 if running then run django server on port 8000.
-	@if [ ! -f $(DB_FILE) ]; then \
-		touch $(DB_FILE); \
-		echo "Created: $(DB_FILE)"; \
-	else \
-		echo "Already exists: $(DB_FILE)"; \
-	fi
-	sleep 1
-	python3 manage.py makemigrations
-	sleep 1
-	python3 manage.py migrate
-	sleep 1
-	python3 create_superuser.py
-	sleep 1
-	python3 manage.py runserver
 
 .PHONY: requirements
 requirements: ## Install requirements.
 	pip3 install -r requirements.txt
 
-.PHONY: migrate
-migrate: ## Applying database migrations.
+.PHONY: db
+db: ## Applying database migrations.
+	sh create_dbsqlite3.sh
+	sleep 1
 	python3 manage.py makemigrations
 	sleep 1
 	python3 manage.py migrate
@@ -48,12 +36,12 @@ IMAGE_NAME=yum-book
 IMAGE_TAG=latest
 DOCKER_USER=mgrah
 
-.PHONY: build 
+.PHONY: build-image
 build: ## Build the Docker image.
 	docker build -t $(IMAGE_NAME):$(IMAGE_TAG) .
 	docker tag $(IMAGE_NAME):$(IMAGE_TAG) $(DOCKER_USER)/$(IMAGE_NAME):$(IMAGE_TAG)
 
-.PHONY: push
+.PHONY: push-image
 push: build ## Push the image to Docker Hub.
 	docker push $(DOCKER_USER)/$(IMAGE_NAME):$(IMAGE_TAG)
 
@@ -66,8 +54,6 @@ build-cluster: ## Build kubernetes cluster.
 
 .PHONY: clean-cluster
 clean-cluster: ## clean kubernetes cluser.
-	kubectl delete deployments -l app=yum-book
-	kubectl delete services -l app=yum-book
 	kubectl delete -f kubernetes/yum-book-deployment.yaml
 	kubectl delete -f kubernetes/yum-book-service.yaml
 
