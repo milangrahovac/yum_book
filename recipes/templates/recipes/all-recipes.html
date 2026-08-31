@@ -1,7 +1,7 @@
 {% extends "recipes/base.html" %}
 {% load static %}
 
-{% block title %}All Recepies{% endblock title %}
+{% block title %}All Recipes{% endblock title %}
 
 {% block css_files %}
 <link rel="stylesheet" href="{% static 'recipes/styles/index.css' %}">
@@ -13,7 +13,7 @@
 
 <section id="recepies-grid">
 
-    <h2>All recipies</h2>
+    <h2>All recipes</h2>
     <ul>
         {% for recipe in all_recipes %}
             {% include "recipes/includes/recipes-grid.html" %}

@@ -13,7 +13,7 @@ This is a simple Django application for storing and viewing recipes. The app fea
 
 ## Features
 
-- **YumBook - Home Page:** Links to the homepage. The home page displays the 3 most recently added recipes and bellow the 3 top-rated recipes.
+- **YumBook - Home Page:** Links to the homepage. The home page displays the 3 most recently added recipes and below the 3 top-rated recipes.
 - **All Recipes Page:** Displays all recipes sorted by rating.
 - **Categories DropDown Menu:** A dropdown menu with cuisine types (e.g., Italian, Russian, Asian, Vegan). Selecting a category shows only recipes of that type.
 - **Django Admin Page** to manage (add/edit/delete) recipes. The app dynamically displays updated content. Once a recipe is added, edited, or deleted in the database, the change will automatically reflect in the app without the need to modify HTML manually.
@@ -24,7 +24,7 @@ This is a simple Django application for storing and viewing recipes. The app fea
 ### Prerequisites
 Make sure you have Python 3 and pip installed on your system.
 
-### Set Up the Aplication 
+### Set Up the Application
 You can run the application in two ways, depending on your environment and needs:
 **Option 1**: Run Locally (for development)
 This is best if you're testing, developing, or making changes locally.<br>
@@ -53,7 +53,7 @@ make requirements
 ```
 
 4. Set Up the Database: <br>
-- To store application data, you need to create a SQLite database file ***db.sqlite3*** in the root folder as its database and create the database shema. This command also creates admin user. You only need to run this once, when setting up the project for the first time.<br>
+- To store application data, you need to create a SQLite database file ***db.sqlite3*** in the root folder as its database and create the database schema. This command also creates an admin user. You only need to run this once, when setting up the project for the first time.<br>
 ```
 make db
 ```
@@ -66,7 +66,7 @@ make run
 
 6. Open ```http://127.0.0.1:8000``` in your browser to start exploring the app.
 
-## How to manage recepies
+## How to manage recipes
 
 Only admin users can add, edit, or delete recipes. Follow these steps:
 
@@ -102,7 +102,7 @@ source venv/bin/activate
 ```
 make run
 ```
-3. Stop the aplication: <br>
+3. Stop the application: <br>
 ```
 make stop
 ```

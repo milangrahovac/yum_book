@@ -10,13 +10,17 @@ class Category(models.Model):
     name = models.CharField(unique=True, max_length=30)
 
     class Meta():
-        verbose_name_plural = 'Categories'
+        verbose_name_plural = 'Recipes'
 
     def __str__(self):
         return self.name
 
-    def recepie_category(self):
+    def recipe_category(self):
         return self.name
+
+    # Backward compatibility: old misspelled method name
+    def recepie_category(self):
+        return self.recipe_category()
 
     def save(self, *args, **kwargs):
         self.name = self.name.lower().title()
@@ -85,8 +89,7 @@ class Recipe(models.Model):
                 # Handle any exceptions that might occur during file deletion
                 print(f"Error deleting file {file_path}: {e}")
 
-        # Call the superclass's delete method to remove the instance from the database
         super().delete(*args, **kwargs)
 
     class Meta:
-        verbose_name_plural = 'Recepies'
+        verbose_name_plural = 'Recipes'

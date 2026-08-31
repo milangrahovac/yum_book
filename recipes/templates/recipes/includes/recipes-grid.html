@@ -1,11 +1,13 @@
-<li>
+<li class="recipe-card-item">
     <article class="post">
-        <a href="{% url "recipe-detail-page" recipe.slug %}">
+        <a href="{% url "recipe-detail-page" recipe.slug %}" class="recipe-link">
             <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}">
             <div class="post-content">
+                <div class="meta-row">
+                    <span class="category-tag">{{ recipe.category|capfirst }}</span>
+                    <span class="rating-tag">★ {{ recipe.rating }}</span>
+                </div>
                 <h6>{{ recipe.name|capfirst }}</h6>
-                <p>{{ recipe.category|capfirst }}</p>
-                <p>Rating: {{ recipe.rating|capfirst }}</p>
             </div>
         </a>
     </article>

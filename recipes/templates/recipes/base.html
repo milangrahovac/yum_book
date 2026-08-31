@@ -12,31 +12,32 @@
 </head>
 
 <body>
-
-
     <header id="main-header">
+        <div class="brand-block">
+            <h2><a href="{% url "index" %}">Yum Book</a></h2>
+        </div>
 
-        <h2><a href="{% url "index" %}">Yum Book</a></h2>
-    
-        <nav>
+        <nav class="main-nav" aria-label="Main navigation">
             <a href="{% url "all_recipes" %}">All recipes</a>
-    
+
             <div id="dropdown">
-                <a id="dropbtn">Categories</a>
-                <div id="dropdown-content">    
+                <a id="dropbtn" href="#">Categories</a>
+                <div id="dropdown-content">
                     {% for categorie in categories %}
                         <a href="{% url "recipes_by_category" categorie.name %}">{{ categorie.name }}</a>
                     {% endfor %}
                 </div>
             </div>
-    
         </nav>
     </header>
-    <br>
 
-    <div id="content">
-    {% block content %}{% endblock content %}
-    </div>
+    <main id="content">
+        {% block content %}{% endblock content %}
+    </main>
+
+    <footer class="site-footer">
+        <p>Yum Book • Discover recipes worth sharing</p>
+    </footer>
 </body>
 
 </html>

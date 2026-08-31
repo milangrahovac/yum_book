@@ -7,14 +7,35 @@
 <link rel="stylesheet" href="{% static 'recipes/styles/index.css' %}">
 {% endblock css_files %}
 
-
-
 {% block content %}
+<section class="hero">
+    <div class="hero-copy">
+        <p class="eyebrow">Fresh recipes, made for everyday cooking</p>
+        <h1>Find your next favorite dish</h1>
+        <p class="hero-text">
+            Browse handpicked recipes, explore tasty categories, and discover meals suited for busy days, family dinners, and cozy weekends.
+        </p>
+        <div class="hero-actions">
+            <a class="primary-btn" href="{% url "all_recipes" %}">Browse all recipes</a>
+            <a class="secondary-btn" href="#newest-recipes">See latest picks</a>
+        </div>
+    </div>
 
+    <div class="hero-panel">
+        <h3>Popular categories</h3>
+        <div class="category-pills">
+            {% for categorie in categories|slice:":6" %}
+                <a href="{% url "recipes_by_category" categorie.name %}">{{ categorie.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 
-<section id="recepies-grid">
-
-    <h2>Newest recipies</h2>
+<section id="newest-recipes" class="recipes-section">
+    <div class="section-heading">
+        <h2>Newest recipes</h2>
+        <a href="{% url "all_recipes" %}">View all</a>
+    </div>
     <ul>
         {% for recipe in newest_recipes %}
             {% include "recipes/includes/recipes-grid.html" %}
@@ -22,9 +43,10 @@
     </ul>
 </section>
 
-<section id="recepies-grid">
-
-    <h2>Favorite recipies</h2>
+<section class="recipes-section">
+    <div class="section-heading">
+        <h2>Favorite recipes</h2>
+    </div>
     <ul>
         {% for recipe in top_recipes %}
             {% include "recipes/includes/recipes-grid.html" %}
@@ -32,7 +54,7 @@
     </ul>
 </section>
 
-<section><p>Version: {{app_version}}</p></section>
-<br>
-
+<section class="version-box">
+    <p>Version: {{ app_version }}</p>
+</section>
 {% endblock content %}

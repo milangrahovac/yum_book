@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 import dj_database_url
+from .utils import PrependingFileHandler  # Import the custom handler
 
 load_dotenv()
 
@@ -190,8 +191,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIR = [
-    BASE_DIR / 'static',
+STATICFILES_DIRS = [
+    BASE_DIR / 'recipes' / 'static',
 ]
 
 # Default primary key field type
@@ -204,3 +205,34 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/uploads/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+
+# settings.py
+
+# settings.py
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'admin_file': {
+            'level': 'INFO',
+            'class': PrependingFileHandler,  # Use the custom handler
+            # 'class': 'logging.FileHandler',
+            'filename': 'admin_actions.log',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'admin_actions': {   # <--- dedicated logger
+            'handlers': ['admin_file'],
+            'level': 'INFO',
+            'propagate': False,  # important to avoid logging to other loggers
+        },
+    },
+}

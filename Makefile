@@ -58,6 +58,6 @@ clean-cluster: ## clean kubernetes cluser.
 	kubectl delete -f kubernetes/yum-book-service.yaml
 
 .PHONY: argo
-argo: ## build andrun argocd 
+argo: ## build and run argocd 
 	kubectl create namespace argocd
 	kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml

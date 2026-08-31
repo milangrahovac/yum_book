@@ -1,8 +1,21 @@
 /* ---- RESET ---- */
 
+:root {
+    --bg: #fffaf4;
+    --panel: #ffffff;
+    --panel-soft: #fff3e0;
+    --primary: #f59e0b;
+    --primary-dark: #d97706;
+    --primary-soft: #ffedd5;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --border: #f1d5a7;
+    --shadow: 0 18px 40px rgba(97, 52, 11, 0.12);
+}
+
 * {
-    margin: 0; 
-    padding: 0; 
+    margin: 0;
+    padding: 0;
 }
 
 *,
@@ -11,19 +24,16 @@
     box-sizing: border-box;
 }
 
-html:focus-within{
-    scroll-behavior: smooth; 
+html:focus-within {
+    scroll-behavior: smooth;
 }
 
-
-/* make images easier to work with */
 img,
 picture {
     max-width: 100%;
     display: block;
 }
 
-/* make form elements easier to work with */
 input,
 button,
 textarea,
@@ -31,11 +41,8 @@ select {
     font: inherit;
 }
 
-/* remove animations for people who've turned them off */
-@media (prefers-reduced-motion: reduce) {  
-  *,
-  *::before,
-  *::after {
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -43,32 +50,27 @@ select {
   }
 }
 
- /* ---- Default Styles ---- */
-
 body {
-    /* width: 80%;
-    margin: 0 auto; */
-    font-family: 'Roboto', sans-serif;
-    /* background-color: #fbfbdb; */
-    color: black;
-    line-height: 1.15; /* 1 */
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(180deg, #fffaf4 0%, #fff 100%);
+    color: var(--text);
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    margin-bottom: 1em;
+    margin-bottom: 0.75em;
+    line-height: 1.2;
 }
 
-h1 { font-size: 2.4em; }
-h2 { font-size: 2em; }
-h3 { font-size: 1.8em; }
-h5 { font-size: 1.4em; }
-h6 { font-size: 1.2em; }
+h1 { font-size: clamp(2.2rem, 4vw, 4rem); }
+h2 { font-size: clamp(1.8rem, 2.5vw, 2.6rem); }
+h3 { font-size: 1.5rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1.1rem; }
 
-p, a { 
-    font-size: 1.1em;
-    text-wrap: pretty;
-    font-style: inherit;
+p, a {
+    font-size: 1rem;
     color: inherit;
 }
 
@@ -76,80 +78,87 @@ a {
     text-decoration: none;
 }
 
-
 #main-header {
-    width: 100%;
-    height: 5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 10%;
-    position: absolute;
+    position: sticky;
     top: 0;
-    left: 0;
-    background-color: orange;
-    min-width: 400px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 8%;
+    background: rgba(255, 153, 0, 0.96);
+    box-shadow: 0 4px 16px rgba(217, 119, 6, 0.18);
+    backdrop-filter: blur(10px);
 }
 
-#main-header h1, h2, h3 {
-    margin-bottom: 0px;
+.brand-block {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+#main-header h2 {
+    margin: 0;
 }
 
 #main-header a {
-    text-decoration: none;
     color: white;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 #main-header a:hover {
-    color: rgb(233, 237, 156);
-}
-  
-#main-header nav a {
-    font-size: 1.6em;
-    margin-left: 1.3em;
+    color: #fff7df;
 }
 
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
 
-/* dropdown */
-
-
+.main-nav > a,
 #dropbtn {
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 999px;
+    transition: background-color 0.2s ease;
 }
-  
+
+.main-nav > a:hover,
+#dropbtn:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
 #dropdown {
-    /* display: block; */
     position: relative;
     display: inline-block;
 }
-  
+
 #dropdown-content {
-    /* promeniti */
-    display: none; 
+    display: none;
     position: absolute;
     right: 0;
-    background-color: orange;
-    color: white;
-    min-width: 160px;
-    /* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
-    z-index: 1;
-    margin-top: .6em;
+    top: calc(100% + 0.5rem);
+    min-width: 210px;
+    background: #fffaf4;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 0.5rem;
+    z-index: 20;
 }
-  
+
 #dropdown-content a {
-    padding: 12px 0;
-    text-decoration: none;
     display: block;
-    font-size: 6em;
-    /* text-align: center; */
+    padding: 0.8rem 0.9rem;
+    border-radius: 10px;
+    color: var(--text);
+    font-weight: 600;
 }
-  
+
 #dropdown-content a:hover {
-    color: rgb(233, 237, 156);
+    background: var(--primary-soft);
+    color: var(--primary-dark);
 }
 
 #dropdown:hover #dropdown-content {
@@ -157,15 +166,29 @@ a {
 }
 
 #content {
-    padding: 6em 10% 0 10%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 3rem;
 }
 
-@media (max-width: 718px) {
+.site-footer {
+    padding: 2rem 1rem 3rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+@media (max-width: 720px) {
     #main-header {
-        padding: 0 3%;
+        padding: 0.8rem 1rem;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        justify-content: center;
     }
-    #main-header > h1,
-    #main-header nav a { 
-        font-size: 1.2em;
+
+    .main-nav {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
     }
 }

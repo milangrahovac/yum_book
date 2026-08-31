@@ -19,15 +19,20 @@ def index(request):
     })
 
 
-def recepie_detail(request, slug):
+def recipe_detail(request, slug):
     # Single recipe details page
     # always return "categories" so dropdown menu can be created
     categories = Category.objects.all()
-    recipe = Recipe.objects.get(slug=slug)
+    recipe = get_object_or_404(Recipe, slug=slug)
     return render(request, 'recipes/recipe-detail.html', {
         'categories': categories,
         'recipe': recipe
     })
+
+
+# Backward compatibility: old misspelled view name
+def recepie_detail(request, slug):
+    return recipe_detail(request, slug)
 
 
 def all_recipes(request):
@@ -47,13 +52,13 @@ def recipes_by_category(request, selected_category):
     categories = Category.objects.all()
 
     # Retrieve the Category object based on the name from the URL
-    category_obj = get_object_or_404(Category, name=selected_category)
+    category_obj = get_object_or_404(Category, name__iexact=selected_category)
 
     # Filter Recepie objects where category matches the retrieved category
     recipes = Recipe.objects.filter(category=category_obj)
 
     return render(request, 'recipes/category.html', {
-        'category': selected_category,
+        'category': category_obj.name,
         'categories': categories,
         'selected_recipes': recipes,
     })
