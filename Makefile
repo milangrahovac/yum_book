@@ -46,19 +46,24 @@ push: build ## Push the image to Docker Hub.
 	docker push $(DOCKER_USER)/$(IMAGE_NAME):$(IMAGE_TAG)
 
 .PHONY: build-cluster
-build-cluster: clean-cluster ## Build kubernetes cluster.
+build-cluster: wipe ## Build kubernetes cluster.
 	kubectl apply -f k8s/yum-book-deployment.yaml
 	kubectl apply -f k8s/yum-book-service.yaml
+	kubectl apply -f k8s/yum-book-postgres.yaml
+	kubectl apply -f k8s/yum-book-migrate.yaml
 	sleep 5
 	minikube service yum-book-service -n yum-book
 
-.PHONY: clean-cluster
-clean-cluster: ## clean kubernetes cluser.
+.PHONY: wipe
+wipe: ## clean kubernetes cluser.
 	kubectl delete -f k8s/yum-book-deployment.yaml -n yum-book --ignore-not-found
 	sleep 2
 	kubectl delete -f k8s/yum-book-service.yaml -n yum-book --ignore-not-found
 	sleep 2
+	kubectl delete -f k8s/yum-book-migrate.yaml -n yum-book --ignore-not-found
+	sleep 2
 	kubectl delete ns yum-book --ignore-not-found
+	kubectl wait --for=delete namespace/yum-book --timeout=60s
 	sleep 2
 
 .PHONY: argo
