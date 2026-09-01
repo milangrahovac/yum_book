@@ -3,7 +3,7 @@ replicaCount: 2
 image:
   repository: mgrah/yum-book
   tag: latest
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 
 service:
   name: yum-book-service
