@@ -1,35 +1,34 @@
 name: Linters and Tests
 
-on: 
+on:
   push:
-    branches: 
-      - '**'
+    branches:
+      - "**"
     paths-ignore:
-      - 'helm/Chart.yaml'
-      - 'README.md'
-      - '**/README.md'
-      - 'Makefile'
+      - "helm/Chart.yaml"
+      - "README.md"
+      - "**/README.md"
+      - "Makefile"
 jobs:
-
   linters-and-tests:
     if: contains(github.event.head_commit.message, '[skip ci]') == false
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v7
         with:
-          python-version: '3.12'
+          python-version: "3.12"
 
       - name: Install dependencies and linter
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install flake8  
-          
+          pip install flake8
+
       - name: Run flake8
         run: flake8 . --exclude=venv,migrations --max-line-length=120
 
@@ -78,7 +77,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12' 
+          python-version: "3.12"
 
       - name: Install dependencies
         run: |
