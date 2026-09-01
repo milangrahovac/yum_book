@@ -4,7 +4,7 @@ image:
   repository: mgrah/yum-book
   tag: latest
   pullPolicy: IfNotPresent
-
+  
 service:
   name: yum-book-service
   selector:
