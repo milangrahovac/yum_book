@@ -9,6 +9,7 @@ on:
       - "README.md"
       - "**/README.md"
       - "Makefile"
+      - "k8s/**"
 
 jobs:
   lint-and-test:
