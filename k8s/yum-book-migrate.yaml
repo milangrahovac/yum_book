@@ -1,31 +1,16 @@
-apiVersion: v1
-kind: Namespace
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: yum-book
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: yum-book-app
+  name: yum-book-migrate
   namespace: yum-book
-  labels:
-    app: yum-book
 spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: yum-book-app
   template:
-    metadata:
-      labels:
-        app: yum-book-app
     spec:
+      restartPolicy: Never
       containers:
-        - name: yum-book-app
+        - name: yum-book-migrate
           image: mgrah/yum-book:latest
           imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 8000
           env:
             - name: POSTGRES
               value: "true"
@@ -45,5 +30,4 @@ spec:
           args:
             - |
               python manage.py migrate &&
-              python create_superuser.py &&
-              python manage.py runserver 0.0.0.0:8000
+              python create_superuser.py

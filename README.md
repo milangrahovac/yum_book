@@ -128,3 +128,44 @@ make run
 ```
 make stop
 ```
+
+### Using Helm
+
+Once you have cloned the repository and installed Helm, you can manage the application deployment using Helm commands.
+
+1. Deploy the Application: <br>
+
+```
+helm install yum-book ./helm --namespace yum-book --create-namespace
+```
+
+2. Access the Application: via MiniKube <br>
+
+```
+minikube service yum-book-service -n yum-book
+```
+
+or via port forwarding: <br>
+
+```
+kubectl port-forward -n yum-book svc/yum-book-service 8000:8000
+```
+
+3. Open your browser and navigate to <br>
+
+```
+http://localhost:8000
+```
+
+4. Uninstall the Helm release
+
+```
+helm uninstall yum-book --namespace yum-book
+```
+
+5. Optional: Completely Wipe Everything
+   To completely delete the Helm release, all running pods, persistent storage, and the yum-book namespace <br>
+
+```
+kubectl delete namespace yum-book
+```
