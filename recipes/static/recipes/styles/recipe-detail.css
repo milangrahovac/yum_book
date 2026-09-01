@@ -58,7 +58,7 @@ article h3 {
 }
 
 @media (max-width: 600px) {
-    #recepies-grid ul {
+    .recipes-grid ul {
         grid-template-columns: 1fr; /* 1 column on small screens */
     }
 }

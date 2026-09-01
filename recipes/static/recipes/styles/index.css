@@ -1,5 +1,5 @@
 /* Section container */
-#recepies-grid {
+.recipes-grid {
     width: 100%;
     max-width: 1200px; /* Optional max-width for centering */
     margin: 0 auto;
@@ -9,7 +9,7 @@
 }
 
 /* Grid styling for the ul */
-#recepies-grid ul {
+.recipes-grid ul {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 columns per row */
     gap: 1em; /* Space between items */
@@ -19,15 +19,15 @@
 }
 
 /* Individual list items */
-#recepies-grid li {
+.recipes-grid li {
     padding: 0;
 }
 
-#recepies-grid h2 {
+.recipes-grid h3 {
     margin-bottom: 1em;
 }
 /* Article link styling */
-#recepies-grid a {
+.recipes-grid a {
     display: block;
     text-decoration: none;
     color: black;
@@ -39,13 +39,13 @@
 }
 
 /* Hover effect for the a element */
-#recepies-grid a:hover {
+.recipes-grid a:hover {
     background-color: orange;
     color: white; /* Optional color change on hover */
 }
 
 /* Image styling */
-#recepies-grid img {
+.recipes-grid img {
     width: 100%;
     height: 200px;
     object-fit: cover;
@@ -73,13 +73,13 @@
 
 /* Responsive adjustments */
 @media (max-width: 900px) {
-    #recepies-grid ul {
+    .recipes-grid ul {
         grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
     }
 }
 
 @media (max-width: 600px) {
-    #recepies-grid ul {
+    .recipes-grid ul {
         grid-template-columns: 1fr; /* 1 column on small screens */
     }
 }
@@ -97,5 +97,3 @@
 /* @media screen and (max-width: 900px) and (min-width: 600px) {
 
 } */
-
-

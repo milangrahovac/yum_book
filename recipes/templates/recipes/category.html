@@ -1,26 +1,13 @@
-{% extends "recipes/base.html" %}
-{% load static %}
+{% extends "recipes/base.html" %} {% load static %} {% block title %}All
+Recipes{% endblock title %} {% block css_files %}
+<link rel="stylesheet" href="{% static 'recipes/styles/index.css' %}" />
+{% endblock css_files %} {% block content %}
 
-{% block title %}All Recepies{% endblock title %}
-
-{% block css_files %}
-<link rel="stylesheet" href="{% static 'recipes/styles/index.css' %}">
-{% endblock css_files %}
-
-
-{% block content %}
-
-
-<section id="recepies-grid">
-
-    <h2>{{ category|capfirst }}</h2>
-    <ul>
-        {% for recipe in selected_recipes %}
-            {% include "recipes/includes/recipes-grid.html" %}
-        {% endfor %}
-    </ul>
+<section class="recipes-grid">
+  <h2>{{ category|capfirst }}</h2>
+  <ul>
+    {% for recipe in selected_recipes %}{% include "recipes/includes/recipes-grid.html" %}{% endfor %}
+  </ul>
 </section>
-
-
 
 {% endblock content %}
