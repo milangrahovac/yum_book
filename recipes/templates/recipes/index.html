@@ -1,38 +1,27 @@
-{% extends "recipes/base.html" %}
-{% load static %}
-
-{% block title %}YumBook{% endblock title %}
-
-{% block css_files %}
-<link rel="stylesheet" href="{% static 'recipes/styles/index.css' %}">
+{% extends "recipes/base.html" %} {% load static %}
+{% block title%}YumBook{%endblock title %} {% block css_files %}
+<link rel="stylesheet" href="{% static 'recipes/styles/index.css' %}" />
 {% endblock css_files %}
-
-
 
 {% block content %}
 
-
-<section id="recepies-grid">
-
-    <h2>Newest recipies</h2>
-    <ul>
-        {% for recipe in newest_recipes %}
-            {% include "recipes/includes/recipes-grid.html" %}
-        {% endfor %}
-    </ul>
+<section class="recipes-grid">
+  <h3>Newest recipies</h3>
+  <ul>
+    {% for recipe in newest_recipes %}{% include "recipes/includes/recipes-grid.html" %}{% endfor %}
+  </ul>
 </section>
 
-<section id="recepies-grid">
-
-    <h2>Favorite recipies</h2>
-    <ul>
-        {% for recipe in top_recipes %}
-            {% include "recipes/includes/recipes-grid.html" %}
-        {% endfor %}
-    </ul>
+<section class="recipes-grid">
+  <h3>Favorite recipies</h3>
+  <ul>
+    {% for recipe in top_recipes %}{% include "recipes/includes/recipes-grid.html" %}{% endfor %}
+  </ul>
 </section>
 
-<section><p>Version: {{app_version}}</p></section>
-<br>
+<section>
+  <p>Version: {{app_version}}</p>
+</section>
+<br />
 
 {% endblock content %}

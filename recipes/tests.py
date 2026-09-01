@@ -192,10 +192,10 @@ class HomepageTest(TestCase):
     #         response = self.client.get(reverse('index'))
     #         self.assertEqual(response.status_code, 200)
     #         self.assertIn('categories', response.context)
-    #         self.assertIn('newest_recepies', response.context)
+    #         self.assertIn('newest_recipes', response.context)
     #         self.assertIn('top_recipes', response.context)
     #         # Checks for the 3 latest recipes
-    #         self.assertLessEqual(len(response.context['newest_recepies']), 3)
+    #         self.assertLessEqual(len(response.context['newest_recipes']), 3)
     #         # Checks for the top 3 rated recipes
     #         self.assertLessEqual(len(response.context['top_recipes']), 3)
 
@@ -205,7 +205,7 @@ class HomepageTest(TestCase):
     #         self.assertEqual(response.status_code, 200)
     #         self.assertTemplateUsed(response, 'recipes/all-recipes.html')
     #         self.assertIn('categories', response.context)
-    #         self.assertIn('all_recepies', response.context)
+    #         self.assertIn('all_recipes', response.context)
 
     #     def test_recipe_detail_view(self):
     #         # Test the recipe detail page view

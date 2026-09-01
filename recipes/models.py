@@ -89,4 +89,4 @@ class Recipe(models.Model):
         super().delete(*args, **kwargs)
 
     class Meta:
-        verbose_name_plural = 'Recepies'
+        verbose_name_plural = 'Recipes'

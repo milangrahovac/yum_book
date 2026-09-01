@@ -1,47 +1,35 @@
-{% extends "recipes/base.html" %}
-{% load static %}
+{% extends "recipes/base.html" %} {% load static %} {% block title %}{{
+recipe.name }}{% endblock title %} {% block css_files %}
+<link rel="stylesheet" href="{% static 'recipes/styles/recipe-detail.css' %}" />
+{% endblock css_files %} {% block content %}
 
-{% block title %}{{ recipe.name }}{% endblock title %}
+<h2>{{ recipe.name|capfirst }}</h2>
 
-{% block css_files %}
-<link rel="stylesheet" href="{% static 'recipes/styles/recipe-detail.css' %}">
-{% endblock css_files %}
+<article>
+  <div>
+    <h3>Rating: {{ recipe.rating }}</h3>
+  </div>
+  <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" />
+</article>
 
+<article class="ingredients">
+  <div>
+    <h3>Ingredients:</h3>
+    {% comment %}
+    <p>{{ recipe.ingredients|linebreaks }}</p>
+    {% endcomment %}
 
-{% block content %}
+    <ul>
+      {% for line in recipe.ingredients.splitlines %}
+      <li>{{ line }}</li>
+      {% endfor %}
+    </ul>
+  </div>
 
-
-    <h2>{{ recipe.name|capfirst }}</h2>
-
-    <article>
-        <div>
-            <h3>Rating: {{ recipe.rating }}</h3>
-        </div>
-        <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}">
-
-    </article>
-
-
-    <article class="ingredients">
-        
-        <div>
-            <h3>Ingredients:</h3>
-            {% comment %} <p>{{ recipe.ingredients|linebreaks }}</p> {% endcomment %}
-
-            <ul>
-                {% for line in recipe.ingredients.splitlines %}
-                    <li>{{ line }}</li>
-                {% endfor %}
-            </ul>
-
-        </div>
-
-        <div class="preparation">
-            <h3>Preparation:</h3>
-            <p>{{ recipe.preparation|linebreaksbr }}</p>
-        </div>
-
-    </article>
-
+  <div class="preparation">
+    <h3>Preparation:</h3>
+    <p>{{ recipe.preparation|linebreaksbr }}</p>
+  </div>
+</article>
 
 {% endblock content %}
