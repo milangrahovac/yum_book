@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin dashboard</title>
+    <style>
+      body {
+        margin: 0;
+        background: #f8f8f8;
+        color: #222;
+        font: 14px sans-serif;
+      }
+      header {
+        padding: 20px 24px;
+        background: #417690;
+        color: white;
+      }
+      main {
+        max-width: 1100px;
+        margin: 24px auto;
+        padding: 0 24px;
+      }
+      a {
+        display: inline-block;
+        margin-bottom: 20px;
+        color: #417690;
+        font-weight: bold;
+      }
+      .dashboard-grid,
+      .charts {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin: 24px 0;
+      }
+      .stat-card,
+      .chart {
+        padding: 20px;
+        background: white;
+        border: 1px solid #ddd;
+        box-shadow: 0 1px 4px #0002;
+      }
+      .stat-card {
+        border-left: 5px solid #f5a623;
+      }
+      .stat-card strong {
+        display: block;
+        font-size: 30px;
+        margin-top: 8px;
+      }
+      .chart {
+        box-shadow: none;
+      }
+      .chart h2 {
+        margin-top: 0;
+      }
+      .bar-row {
+        display: grid;
+        grid-template-columns: 90px 1fr 30px;
+        gap: 10px;
+        align-items: center;
+        margin: 12px 0;
+      }
+      .bar {
+        height: 18px;
+        min-width: 3px;
+        background: #f5a623;
+      }
+      .muted {
+        color: #666;
+      }
+      @media (max-width: 700px) {
+        .dashboard-grid,
+        .charts {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header><strong>YumBook admin</strong></header>
+    <main>
+      <a href="/admin/">Back to admin</a>
+      <h1>Admin dashboard</h1>
+      <section class="dashboard-grid">
+        <div class="stat-card">Recipes<strong>{{ recipe_count }}</strong></div>
+        <div class="stat-card">
+          Categories<strong>{{ category_count }}</strong>
+        </div>
+        <div class="stat-card">
+          Average rating<strong
+            >{{ average_rating|floatformat:1|default:'-' }}</strong
+          >
+        </div>
+      </section>
+      <section class="charts">
+        <div class="chart">
+          <h2>Recipes by category</h2>
+          {% for item in category_stats %}
+          <div class="bar-row">
+            <span>{{ item.name }}</span>
+            <span
+              class="bar"
+              style="width: {% widthratio item.recipe_count max_category_count 100 %}%;"
+            ></span>
+            <strong>{{ item.recipe_count }}</strong>
+          </div>
+          {% empty %}
+          <p class="muted">No categories yet.</p>
+          {% endfor %}
+        </div>
+        <div class="chart">
+          <h2>Activity by day</h2>
+          {% for day, count in activity_by_day %}
+          <div class="bar-row">
+            <span>{{ day }}</span>
+            <span
+              class="bar"
+              style="width: {% widthratio count 10 100 %}%;"
+            ></span>
+            <strong>{{ count }}</strong>
+          </div>
+          {% empty %}
+          <p class="muted">No logged activity yet.</p>
+          {% endfor %}
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

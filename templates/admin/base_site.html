@@ -1,0 +1,11 @@
+{% extends "admin/base.html" %} {% block title %} YumBook admin {% endblock %}
+{% block branding %}
+<h1 id="site-name">
+  <a href="{% url 'admin:index' %}">YumBook administration</a>
+</h1>
+{% endblock %} {% block nav-global %}
+<div id="custom-admin-tools" style="padding: 10px 0">
+  <a href="{% url 'admin-dashboard' %}" style="margin-right: 16px">Dashboard</a>
+  <a href="{% url 'admin-actions-log' %}">Logs</a>
+</div>
+{% endblock %}

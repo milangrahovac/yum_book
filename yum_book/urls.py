@@ -19,9 +19,11 @@ from django.shortcuts import render
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from recipes.views import admin_actions_log, export_admin_actions_log
+from recipes.views import admin_actions_log, admin_dashboard, export_admin_actions_log
 
 urlpatterns = [
+    path('admin/dashboard/', admin.site.admin_view(admin_dashboard),
+         name='admin-dashboard'),
     path('admin/logs/export/', admin.site.admin_view(export_admin_actions_log),
          name='export-admin-actions-log'),
     path('admin/logs/', admin.site.admin_view(admin_actions_log),

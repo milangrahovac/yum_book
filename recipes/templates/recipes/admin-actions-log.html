@@ -23,7 +23,7 @@
       }
       a {
         display: inline-block;
-        margin-bottom: 20px;
+        margin: 0 16px 20px 0;
         color: #417690;
         font-weight: bold;
       }
@@ -39,6 +39,7 @@
   <body>
     <header><strong>YumBook admin</strong></header>
     <main>
+      <a href="/admin/">Back to admin</a>
       <a href="{% url 'export-admin-actions-log' %}">Export CSV</a>
       <h1>Admin action logs</h1>
       {% if log_text %}
