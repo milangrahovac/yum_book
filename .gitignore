@@ -11,6 +11,12 @@ migrations/
 django.txt
 
 # exclude everything
+logs/*
+
+# exception to the rule
+!logs/.gitkeep
+
+# exclude everything
 uploads/images/*
 
 # exception to the rule

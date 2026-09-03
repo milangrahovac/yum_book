@@ -1,5 +1,6 @@
-{% extends "recipes/base.html" %} {% load static %} {% block title %}{{
-recipe.name }}{% endblock title %} {% block css_files %}
+{% extends "recipes/base.html" %} {% load static %}
+{% block title %} {{ recipe.name }} {% endblock title %}
+{% block css_files %}
 <link rel="stylesheet" href="{% static 'recipes/styles/recipe-detail.css' %}" />
 {% endblock css_files %} {% block content %}
 

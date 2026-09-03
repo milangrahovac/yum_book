@@ -1,7 +1,11 @@
-{% extends "recipes/base.html" %} {% load static %} {% block title %}All
-Recipes{% endblock title %} {% block css_files %}
+{% extends "recipes/base.html" %}
+{% load static %}
+{% block title %}{{ category|capfirst }} Recipes {% endblock title %}
+{% block css_files %}
 <link rel="stylesheet" href="{% static 'recipes/styles/index.css' %}" />
-{% endblock css_files %} {% block content %}
+{% endblock css_files %}
+
+{% block content %}
 
 <section class="recipes-grid">
   <h2>{{ category|capfirst }}</h2>

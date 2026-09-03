@@ -61,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'yum_book.middleware.AdminActionLoggingMiddleware',
 ]
 
 ROOT_URLCONF = 'yum_book.urls'
@@ -204,3 +205,47 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/uploads/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+
+# Logging settings
+
+LOG_DIR = BASE_DIR / 'logs'
+os.makedirs(LOG_DIR, exist_ok=True)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{asctime} [{levelname}] User: {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'admin_file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOG_DIR, 'admin_actions.log'),
+            'maxBytes': 5 * 1024 * 1024,  # 5 Megabytes per log file
+            'backupCount': 5,             # Keep up to 5 historical log files
+            'formatter': 'verbose',
+            'encoding': 'utf-8',
+        },
+    },
+    'loggers': {
+        'admin_logger': {
+            'handlers': ['admin_file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
+
+# Ovo treba samo ako se radi preko nginx, da bi mogao da se uloguje u admin panel.
+CSRF_TRUSTED_ORIGINS = [
+    'http://127.0.0.1:8080',
+    'http://localhost:8080',
+]
