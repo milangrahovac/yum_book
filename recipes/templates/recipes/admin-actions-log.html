@@ -1,0 +1,17 @@
+{% extends "admin/base_site.html" %}
+
+{% block title %}
+Admin action logs
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  <h1>Admin action logs</h1>
+  {% if log_lines %}
+  <pre class="admin-log-output">{% for line in log_lines %}{{ line }}
+{% endfor %}</pre>
+  {% else %}
+  <p>No admin actions have been logged yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

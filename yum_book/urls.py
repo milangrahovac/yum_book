@@ -15,12 +15,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.shortcuts import render
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from recipes.views import admin_actions_log
 
 urlpatterns = [
+    path('admin/logs/', admin.site.admin_view(admin_actions_log),
+         name='admin-actions-log'),
     path('admin/', admin.site.urls),
     path('', include('recipes.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
+def custom_404(request, exception):
+    return render(request, 'recipes/404.html', status=404)
+
+
+handler404 = 'yum_book.urls.custom_404'

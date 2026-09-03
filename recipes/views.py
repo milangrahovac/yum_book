@@ -1,3 +1,6 @@
+from pathlib import Path
+
+from django.conf import settings
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Recipe
 import yaml
@@ -23,7 +26,7 @@ def recepie_detail(request, slug):
     # Single recipe details page
     # always return "categories" so dropdown menu can be created
     categories = Category.objects.all()
-    recipe = Recipe.objects.get(slug=slug)
+    recipe = get_object_or_404(Recipe, slug=slug)
     return render(request, 'recipes/recipe-detail.html', {
         'categories': categories,
         'recipe': recipe
@@ -56,6 +59,19 @@ def recipes_by_category(request, selected_category):
         'category': selected_category,
         'categories': categories,
         'selected_recipes': recipes,
+    })
+
+
+def admin_actions_log(request):
+    log_path = Path(settings.LOG_DIR) / 'admin_actions.log'
+    if log_path.exists():
+        log_lines = log_path.read_text(encoding='utf-8').splitlines()[-200:]
+        log_lines.reverse()
+    else:
+        log_lines = []
+
+    return render(request, 'recipes/admin-actions-log.html', {
+        'log_lines': log_lines,
     })
 
 

@@ -1,0 +1,11 @@
+{% extends "recipes/base.html" %} {% load static %} {% block title %}Page Not
+Found{% endblock title %} {% block css_files %}
+<link rel="stylesheet" href="{% static 'recipes/styles/404.css' %}" />
+{% endblock css_files %} {% block content %}
+<main class="not-found">
+  <p class="not-found-code">404</p>
+  <h1>Page not found</h1>
+  <p>The page you are looking for does not exist or may have moved.</p>
+  <a class="not-found-link" href="{% url 'index' %}">Back to Yum Book</a>
+</main>
+{% endblock content %}
