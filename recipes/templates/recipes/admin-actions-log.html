@@ -1,17 +1,51 @@
-{% extends "admin/base_site.html" %}
-
-{% block title %}
-Admin action logs
-{% endblock %}
-
-{% block content %}
-<div id="content-main">
-  <h1>Admin action logs</h1>
-  {% if log_lines %}
-  <pre class="admin-log-output">{% for line in log_lines %}{{ line }}
-{% endfor %}</pre>
-  {% else %}
-  <p>No admin actions have been logged yet.</p>
-  {% endif %}
-</div>
-{% endblock %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin action logs</title>
+    <style>
+      body {
+        margin: 0;
+        background: #f8f8f8;
+        color: #222;
+        font: 14px sans-serif;
+      }
+      header {
+        padding: 20px 24px;
+        background: #417690;
+        color: white;
+      }
+      main {
+        max-width: 1100px;
+        margin: 24px auto;
+        padding: 0 24px;
+      }
+      a {
+        display: inline-block;
+        margin-bottom: 20px;
+        color: #417690;
+        font-weight: bold;
+      }
+      pre {
+        padding: 20px;
+        background: white;
+        border: 1px solid #ddd;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+    </style>
+  </head>
+  <body>
+    <header><strong>YumBook admin</strong></header>
+    <main>
+      <a href="{% url 'export-admin-actions-log' %}">Export CSV</a>
+      <h1>Admin action logs</h1>
+      {% if log_text %}
+      <pre>{{ log_text }}</pre>
+      {% else %}
+      <p>No admin actions have been logged yet.</p>
+      {% endif %}
+    </main>
+  </body>
+</html>

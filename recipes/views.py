@@ -1,6 +1,8 @@
+import csv
 from pathlib import Path
 
 from django.conf import settings
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Recipe
 import yaml
@@ -63,16 +65,28 @@ def recipes_by_category(request, selected_category):
 
 
 def admin_actions_log(request):
-    log_path = Path(settings.LOG_DIR) / 'admin_actions.log'
-    if log_path.exists():
-        log_lines = log_path.read_text(encoding='utf-8').splitlines()[-200:]
-        log_lines.reverse()
-    else:
-        log_lines = []
+    log_lines = _read_admin_log_lines()
 
     return render(request, 'recipes/admin-actions-log.html', {
-        'log_lines': log_lines,
+        'log_lines': list(reversed(log_lines[-200:])),
+        'log_text': '\n'.join(reversed(log_lines[-200:])),
     })
+
+
+def export_admin_actions_log(request):
+    response = HttpResponse(content_type='text/csv; charset=utf-8')
+    response['Content-Disposition'] = 'attachment; filename="admin_actions.csv"'
+    writer = csv.writer(response)
+    writer.writerow(['log_entry'])
+    writer.writerows([[line] for line in _read_admin_log_lines()])
+    return response
+
+
+def _read_admin_log_lines():
+    log_path = Path(settings.LOG_DIR) / 'admin_actions.log'
+    if not log_path.exists():
+        return []
+    return log_path.read_text(encoding='utf-8').splitlines()
 
 
 def get_chart_version(chart_path="helm/Chart.yaml"):
