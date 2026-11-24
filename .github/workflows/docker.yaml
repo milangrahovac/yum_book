@@ -6,11 +6,16 @@ on:
       - main
     paths-ignore:
       - ".github/**"
+      - ".gitignore"
       - "logs/**"
       - "README.md"
       - "**/README.md"
       - "Makefile"
       - "k8s/**"
+      - "argocd/**"
+      - "helm/templates/**"
+      - "helm/values.yaml"
+      - "docker-compose.yml"
 
 jobs:
   lint-and-test:
@@ -129,7 +134,7 @@ jobs:
         run: |
           VERSION=$(grep '^appVersion:' helm/Chart.yaml | awk '{ print $2 }')
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "Current version: $VERSION"
+          echo "Image Tag: yum-book:$VERSION"
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
