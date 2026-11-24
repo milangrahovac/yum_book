@@ -11,3 +11,7 @@ README.md
 .DS_Store
 .env
 db.sqlite3
+logs/
+*.log
+uploads/images/*
+!uploads/images/.gitkeep
